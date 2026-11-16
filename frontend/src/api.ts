@@ -31,12 +31,28 @@ export function validReport(r: unknown): ResearchReport | null {
   const passage = (p: unknown) => record(p) && text(p.representative) && Array.isArray(p.requirement) && p.requirement.length > 0 && p.requirement.every(text) && text(p.valence) && num(p.G)
     && Array.isArray(p.regions) && p.regions.every(text) && record(p.features) && Object.values(p.features).every(f => record(f) && text(f.class) && num(f.confidence) && typeof f.held === 'boolean')
     && optionalText(p.translation) && optionalText(p.source);
+  // Optional detail (texts, source place, measured values): a malformed piece is dropped, the rest of the report stays.
+  const part = (c: unknown) => record(c) && text(c.label) && num(c.value) && text(c.unit);
+  const measure = (m: unknown) => record(m) && text(m.label) && numOrNull(m.value) && text(m.unit) && (m.cuts === undefined || m.cuts === null || (Array.isArray(m.cuts) && m.cuts.every(num)))
+    && (m.cut_classes === undefined || m.cut_classes === null || (Array.isArray(m.cut_classes) && m.cut_classes.every(text))) && (m.components === undefined || (Array.isArray(m.components) && m.components.every(part)));
+  const sourceDetail = (s: unknown) => record(s) && ['title','title_ko','chapter','section','scan_page','scan_page_end','attributed_to','url','license','text_witness'].every(k => optionalText(s[k]))
+    && (s.char_span === undefined || s.char_span === null || (Array.isArray(s.char_span) && s.char_span.length === 2 && s.char_span.every(num)));
+  const trimTexts = (p: Record<string, unknown>) => {for (const k of ['original_text','commentary','annotation_status','translation_kind','split_of']) if (!optionalText(p[k])) delete p[k]; if (p.source_detail !== undefined && p.source_detail !== null && !sourceDetail(p.source_detail)) delete p.source_detail;};
+  const entry = (e: unknown) => record(e) && text(e.id) && text(e.valence) && Array.isArray(e.topics) && e.topics.every(text) && optionalText(e.translation) && optionalText(e.source);
+  const line = (l: unknown) => record(l) && text(l.topic) && text(l.valence) && optionalText(l.translation) && Array.isArray(l.sources) && l.sources.every(text) && Array.isArray(l.entries) && l.entries.length > 0 && l.entries.length <= 100 && l.entries.every(entry);
+  const trimPassage = (p: Record<string, unknown>) => {trimTexts(p);
+    if (p.lines !== undefined) {if (Array.isArray(p.lines) && p.lines.length <= 50 && p.lines.every(line)) (p.lines as {entries: Record<string, unknown>[]}[]).forEach(l => l.entries.forEach(trimTexts)); else delete p.lines;}
+    for (const k of ['entry_count', 'hidden_unfavourable', 'omitted_entries']) if (p[k] !== undefined && !num(p[k])) delete p[k];};
+  const trimJudgement = (j: Record<string, unknown>) => {for (const k of ['measure','reference']) if (j[k] !== undefined && j[k] !== null && !measure(j[k])) delete j[k];
+    if (j.probabilities !== undefined && j.probabilities !== null && !(record(j.probabilities) && Object.values(j.probabilities).every(num))) delete j.probabilities;};
   const lists = [r.plan_C_selected, r.all_matching, r.blocked_by_hold];
   if (!lists.every(l => Array.isArray(l) && l.length <= 200 && l.every(passage)) || (r.plan_C_selected as unknown[]).length > 5) return null;
   if (!Object.values(r.judgements).every(j => record(j) && text(j.name) && text(j.region) && text(j.status) && optionalText(j.method) && optionalText(j.class) && numOrNull(j.value) && numOrNull(j.confidence) && numOrNull(j.threshold))) return null;
   if (!Array.isArray(r.held_judgements) || !r.held_judgements.every(h => record(h) && text(h.feature) && text(h.name) && text(h.class) && num(h.confidence) && num(h.threshold) && text(h.reason))) return null;
   if (!Object.values(r.cnn_check).every(c => record(c) && Object.values(c).every(e => record(e) && text(e.class) && num(e.confidence)))) return null;
   if (r.notes !== undefined && !(Array.isArray(r.notes) && r.notes.every(text))) return null;
+  for (const l of lists) for (const p of l as Record<string, unknown>[]) trimPassage(p);
+  for (const j of Object.values(r.judgements) as Record<string, unknown>[]) trimJudgement(j);
   return r as unknown as ResearchReport;
 }
 const MAX_OVERLAY_POINTS = 20000;

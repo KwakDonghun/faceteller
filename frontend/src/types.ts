@@ -22,8 +22,22 @@ export interface FaceOverlay {width: number; height: number; features: OverlayFe
 /** TEMPORARY (2026-11-16) research view: the report of experiments/feature17-20261109/run_person.analyze, shown instead of
  *  the service cards when the server sends it. No photo and no landmark coordinates. */
 export interface ReportFeatureUse {class: string; confidence: number; held: boolean}
-export interface ReportPassage {representative: string; requirement: string[]; valence: string; G: number; regions: string[]; features: Record<string, ReportFeatureUse>; translation?: string | null; source?: string | null}
-export interface ReportJudgement {name: string; region: string; method: string | null; value: number | null; class: string | null; confidence: number | null; threshold: number | null; status: string}
+/** Where a passage stands in its source: book, chapter, section heading, character span in the section, scan page, pinned URL. */
+export interface ReportSource {title?: string | null; title_ko?: string | null; chapter?: string | null; section?: string | null; char_span?: number[] | null; scan_page?: string | null; scan_page_end?: string | null; attributed_to?: string | null; url?: string | null; license?: string | null; text_witness?: string | null}
+export interface ReportPassage {representative: string; requirement: string[]; valence: string; G: number; regions: string[]; features: Record<string, ReportFeatureUse>; translation?: string | null; source?: string | null;
+  original_text?: string | null; commentary?: string | null; source_detail?: ReportSource | null; annotation_status?: string | null; translation_kind?: string | null; split_of?: string | null;
+  /** What the books say for this condition: one line per kind of statement with every book that says it. */
+  lines?: ReportLine[]; entry_count?: number; hidden_unfavourable?: number; omitted_entries?: number}
+/** One kind of statement: the first passage's sentence, the books that say the same kind of thing, and those passages. */
+export interface ReportLine {topic: string; translation?: string | null; valence: string; sources: string[]; entries: ReportEntry[]}
+/** One passage of a condition group with its own reading direction and topics. */
+export interface ReportEntry {id: string; valence: string; topics: string[]; translation?: string | null; source?: string | null; original_text?: string | null; commentary?: string | null; source_detail?: ReportSource | null; annotation_status?: string | null; translation_kind?: string | null; split_of?: string | null}
+export interface ReportPart {label: string; value: number; unit: string}
+/** A measured value with what it is, its unit and the cuts between the classes; components are the pieces it is made of. */
+export interface ReportMeasure {label: string; value: number | null; unit: string; used_for_judgement?: boolean; cuts?: number[] | null; cut_classes?: string[] | null; components?: ReportPart[]}
+/** measure: the value the judgement is made from. probabilities: CNN class probabilities. reference: a geometric measure shown beside a CNN judgement, never used for it. */
+export interface ReportJudgement {name: string; region: string; method: string | null; value: number | null; class: string | null; confidence: number | null; threshold: number | null; status: string;
+  measure?: ReportMeasure | null; reference?: ReportMeasure | null; probabilities?: Record<string, number> | null}
 export interface ReportCheck {class: string; confidence: number; probabilities?: number[]; classes?: string[]; unjudgeable?: number | null}
 export interface ReportHeld {feature: string; name: string; class: string; confidence: number; threshold: number; reason: string}
 export interface ResearchReport {schema: 'faceteller-research-report-v1'; structure?: string; judgements: Record<string, ReportJudgement>; plan_C_selected: ReportPassage[]; all_matching: ReportPassage[]; blocked_by_hold: ReportPassage[]; held_judgements: ReportHeld[]; cnn_check: Record<string, Record<string, ReportCheck>>; notes?: string[]}

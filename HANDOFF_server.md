@@ -71,7 +71,7 @@ curl http://127.0.0.1:8000/healthz             # {"status":"ok","vggt_dtype":"fp
 | `nose_measures.json` | 코 길이·코 높이 경계값(순위 33% / 67%), 측정 오차, 보류 기준 0.755 |
 | `jaw_measures.json` | 턱 폭(턱 각도) 경계값, 측정 오차 |
 | `depth_models.json` | 광대 돌출·입 돌출 식의 계수와 경계값(F10, F19 항목은 쓰지 않음) |
-| `literature_representatives.json` | 대표 조항 48개: 조건, 풀이 방향, 번역, 출처 |
+| `literature_representatives.json` | 조건 묶음 48개: 조건, 풀이 방향(다수결), 내용 종류별 줄(`lines`)과 그 조항들(127개)의 원문, 번역, 해설, 주제, 출처 위치(책, 권·편, 절, 글자 위치, 스캔 쪽, 주소) |
 | `selection_rules.json` | C안 선정 규칙, 하한, 부위 표 |
 | `manifest.json` | 전체 파일 목록(경로, 크기, sha256, git / s3 구분) |
 | `check_models.json` | 확인용 CNN 목록(선택 사항) |
@@ -116,7 +116,7 @@ Python 3.12.14 · torch 2.11.0+cu128 · torchvision 0.26.0+cu128 · mediapipe 1.
    - 턱 폭: 턱 끝에서 양쪽 턱 모서리를 본 각도
    - 코 높이: VGGT 3차원 점에서 코끝이 미간~턱 앞 선에서 떨어진 거리 ÷ 두 눈 바깥 끝 거리
 5. **VGGT 식 2개** (`vggt_depth.py`, 보류 없음): 광대 돌출, 입 돌출. 사진 3장을 얼굴 중심으로 잘라 VGGT에 넣고, 정면 사진의 얼굴 점 위치에서 3차원 점을 읽어 `depth_models.json`의 계수로 점수를 냅니다.
-6. **조항 맞추기** (`structure.py`): 확정된 판정만으로 대표 조항 48개의 조건을 확인합니다. 조항의 신뢰도(G)는 쓰인 특징 신뢰도의 기하평균입니다.
+6. **조항 맞추기** (`structure.py`): 확정된 판정만으로 조건 묶음 48개의 조건을 확인합니다. 한 묶음은 같은 조건을 다룬 문헌 조항들입니다. 화면에는 내용 종류마다 한 줄(문장 하나와 같은 말을 하는 책 이름들)로 보여 주고, 좋은 풀이가 더 많거나 같은 묶음에서는 나쁜 풀이를 보여 주지 않습니다. 조항의 신뢰도(G)는 쓰인 특징 신뢰도의 기하평균입니다.
 7. **C안 선정**: 신뢰도 순으로 줄 세운 뒤 부위별로 하나씩 돌아가며 고릅니다. 나쁜 풀이는 2개까지, 전체 5개.
 
 눈을 감은 사진이면 눈 크기와 코 길이는 판정하지 않습니다. CNN의 "판정 불가" 출력이 0.5를 넘는 특징도 판정하지 않습니다.
@@ -138,13 +138,33 @@ Python 3.12.14 · torch 2.11.0+cu128 · torchvision 0.26.0+cu128 · mediapipe 1.
   "face_width_px": 520.0,
   "judgements": {                     // 특징 19개, 키는 F01 ~ F21
     "F09": {"name": "코 길이", "region": "코", "method": "정면 수치", "value": 0.3712,
-            "class": "보통", "confidence": 0.81, "threshold": 0.755, "status": "확정"}
+            "class": "보통", "confidence": 0.81, "threshold": 0.755, "status": "확정",
+            "measure": {"label": "두 눈 위쪽 끝의 가운데 ~ 코밑 ÷ 얼굴 폭", "value": 0.3712, "unit": "비율",
+                        "used_for_judgement": true, "cuts": [0.355, 0.377], "cut_classes": ["짧음", "보통", "김"]}},
+    "F05": {"name": "눈썹 휨", "region": "눈썹", "method": "CNN", "value": null,
+            "class": "일자", "confidence": 0.91, "threshold": 0.6, "status": "확정",
+            "probabilities": {"일자": 0.91, "곡선": 0.09},
+            "reference": {"label": "눈썹 휨: 양 끝을 이은 선에서 가장 솟은 높이 ÷ 눈썹 길이", "value": 0.042, "unit": "비율",
+                          "components": [{"label": "가장 솟은 곳에서 꺾인 각도", "value": 7.5, "unit": "도"}]}}
     // status: "확정" | "보류" | "판정 불가(…)" | "측정 불가" 등.  threshold가 null이면 보류 규칙 없음
+    // measure: 판정에 쓴 측정값(무엇을 쟀는지, 단위, 경계값과 칸). 눈 크기는 components에 눈 가로 폭·눈 뜬 높이가 들어감
+    // probabilities: CNN 특징의 칸별 확률.  reference: CNN 특징 옆에 보여 주는 참고 측정값(판정에는 쓰지 않음)
   },
   "plan_C_selected": [                // 화면에 내보낼 조항, 최대 5개
     {"representative": "조항 id", "requirement": ["F18 눈썹 숱:성김"], "valence": "나쁨", "G": 0.77,
      "regions": ["눈썹"], "features": {"F18": {"class": "성김", "confidence": 0.77, "held": false}},
-     "translation": "문헌 번역", "source": "문헌 이름"}
+     "translation": "문헌 번역", "source": "문헌 이름",
+     "original_text": "문헌 원문(한문)", "commentary": "해설", "split_of": null,
+     "annotation_status": "ai_annotated_unreviewed", "translation_kind": "korean_literal_ai_draft",
+     "source_detail": {"title": "神相全編", "title_ko": "신상전편", "chapter": "권·편 이름", "section": "절 제목",
+                       "char_span": [10, 22], "scan_page": "스캔 쪽", "scan_page_end": "스캔 쪽", "attributed_to": null,
+                       "url": "원문 주소(고정된 판)", "license": "이용 조건", "text_witness": "저본"},
+     // 이 조건에 대해 문헌이 하는 말. 내용 종류마다 한 줄: 첫 조항의 문장 + 같은 종류의 말을 하는 책 전부 + 그 조항들
+     "lines": [{"topic": "형제·가족", "translation": "한 줄로 보여 줄 번역", "valence": "좋음", "sources": ["신상전편", "조담경"],
+                "entries": [{"id": "조항 id", "valence": "좋음", "topics": ["형제·가족"], "translation": "번역", "source": "책 이름",
+                             "original_text": "원문", "commentary": "해설", "source_detail": {…}, "annotation_status": "…"}]}],
+     "entry_count": 13, "hidden_unfavourable": 1, "omitted_entries": 0}
+     // hidden_unfavourable: 좋은 풀이가 더 많거나 같아서 보여 주지 않는 나쁜 풀이 수.  omitted_entries: 떼어 보여 줄 수 없어 뺀 조항 수
   ],
   "all_matching": [],                 // 조건이 맞는 조항 전부(같은 형식, 신뢰도 순)
   "blocked_by_hold": [],              // 보류된 판정까지 넣으면 맞았을 조항(같은 형식, held = true인 특징이 있음)
@@ -198,5 +218,7 @@ T4에서는 값이 다를 수 있으니 올린 뒤 같은 표로 한 번 재 주
 - **가까이서 찍은 셀카는 값이 치우칩니다.** 경계값은 멀리서 찍은 사진으로 정했습니다. 가까이서 찍으면 코 길이·눈 크기는 크게, 턱 폭은 좁게 나오는 방향입니다(크기는 아직 재지 않았습니다).
 - **턱 폭은 고개 각도 보정이 없습니다.** 턱을 들면 넓게, 숙이면 좁게 나옵니다.
 - **눈 크기는 조명에 따라 값이 달라집니다.** 그래서 보류가 많습니다.
+- **문헌의 번역과 해설은 자동 작성한 초안입니다.** 원문과 출처 위치는 `data/release/literature/reference_corpus_v1.json`에서 가져왔고, 사람 검수 전이라는 표시(`annotation_status`)를 화면에 같이 보여 줍니다.
+- **참고 측정값은 판정에 쓰지 않습니다.** CNN으로 판정하는 특징 옆에 보여 주는 값(눈썹 휨 정도, 눈꼬리 각도 등)은 설명용입니다.
 - **신뢰도는 정답 확률이 아닙니다.** 판정이 경계에서 얼마나 떨어져 있는지를 나타냅니다.
 - 전통 문헌 조회 결과이며, 개인의 성격·지능·건강·운명을 판정하거나 예측하지 않습니다.

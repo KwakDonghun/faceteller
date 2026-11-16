@@ -62,30 +62,33 @@ class Runner:
             dets.append(d)
         res = {'schema': 'faceteller-research-report-v1', 'structure': '구조 v9 · C안 · 하한 0.6',
                'photos': [{'view': v, 'size': list(im.size), 'yaw': round(d['yaw'], 1), 'pitch': round(d['pitch'], 1), 'roll': round(d['roll'], 1), 'blink': round(float(d['blink']), 2), 'smile': round(float(d['smile']), 2)} for v, im, d in zip(('front', 'oblique_1', 'oblique_2'), ims, dets)]}
-        img, det = ims[0], dets[0]; P3 = det['landmarks'].astype(float); res['face_width_px'] = round(float(np.linalg.norm(P3[234, :2] - P3[454, :2])), 1); raw, value, note = {}, {}, {}
+        img, det = ims[0], dets[0]; P3 = det['landmarks'].astype(float); res['face_width_px'] = round(float(np.linalg.norm(P3[234, :2] - P3[454, :2])), 1); raw, value, note, detail = {}, {}, {}, {}
         # CNN
         say(STAGES[1]); check = self.s.check and cfg.check is not None; X = C.tiles(img, P3, self.template, self.parts + (['glabella', 'face'] if check else [])); say(STAGES[2]); cnn_all = {}
         for part in self.parts: cnn_all.update(C.ensemble(self._nets(self.s.models_dir / 'candidate-v2-posenorm', part, resident), X[part]))
         for k in cfg.cnn_features:
-            c = S.calibrated(*cnn_all[k], cfg.cnn['features'][k]['classes'], cfg.cnn['features'][k]['temperature']); value[k] = None
+            c = S.calibrated(*cnn_all[k], cfg.cnn['features'][k]['classes'], cfg.cnn['features'][k]['temperature']); value[k] = None; detail[k] = {'probabilities': dict(zip(c['classes'], c['probabilities']))}
             if c['unjudgeable'] is not None and c['unjudgeable'] > .5: note[k] = f"판정 불가({c['unjudgeable']:.2f})"; continue
             raw[k] = (c['index'], c['confidence'])
         # numeric F07, F12
         if self.parser is None or not resident: parser = self.parser or ReleaseParser(model_path=self.s.public_models_dir / 'face_parsing/resnet18.onnx', threads=2)
         else: parser = self.parser
         if resident: self.parser = parser
-        f07, f12 = M.brow_gap_and_mouth_width(P3, parser.parse(img, P3[:, :2]))
+        mask = parser.parse(img, P3[:, :2]); f07, f12 = M.brow_gap_and_mouth_width(P3, mask)
+        for k, r in M.reference_measures(P3, mask, self.template).items():
+            if k in detail: detail[k]['reference'] = r  # geometric measure shown next to the CNN result; not used for the judgement
         for k, v in (('F07', f07), ('F12', f12)):
-            value[k] = v; f = cfg.numeric['features'][k]
+            value[k] = v; f = cfg.numeric['features'][k]; detail[k] = {'measure': S.cut_measure(*M.INFO[k], v, f['cuts'], cfg.classes[k])}
             if v is None: note[k] = '측정 불가'; continue
             raw[k] = S.judge_value(f['sign'] * v, f['cuts'], f['sigma'] * f['sigma_multiplier'])
 
-        def measured(k, v):
-            value[k] = v; f = cfg.measure_spec[k]
+        def measured(k, v, components=None):
+            value[k] = v; f = cfg.measure_spec[k]; detail[k] = {'measure': {**S.cut_measure(*M.INFO[k], v, f['cuts'], cfg.classes[k]), **({'components': components} if components else {})}}
             if v is None: note[k] = '측정 불가'; return
             raw[k] = S.judge_value(v, f['cuts'], f['sigma'] * cfg.k_sigma)
         blink = det['blink'] > .5
-        measured('F09', None if blink else M.nose_length(P3)); measured('F01', None if blink else M.eye_size(img, P3, cfg.eye['standardisation_train270'])); measured('F17', M.chin_angle(P3))
+        ev, ecomp = (None, []) if blink else M.eye_size_detail(img, P3, cfg.eye['standardisation_train270'])
+        measured('F09', None if blink else M.nose_length(P3)); measured('F01', ev, ecomp); measured('F17', M.chin_angle(P3))
         # check-only CNNs (optional)
         chk = self._check(X, cnn_all) if check else {}
         # VGGT
@@ -96,7 +99,7 @@ class Runner:
         else:
             measured('F10', self.depth.nose_height(Pv)); c = self.depth.frames(Pv)
             for k in cfg.formula:
-                m = cfg.depth['features'][k]; value[k] = self.depth.score(m, c); i, sc = S.judge_value(value[k], m['cuts'], m['sigma'] * m['sigma_multiplier']); raw[k] = ((2 if i else 1), sc)
+                m = cfg.depth['features'][k]; value[k] = self.depth.score(m, c); i, sc = S.judge_value(value[k], m['cuts'], m['sigma'] * m['sigma_multiplier']); raw[k] = ((2 if i else 1), sc); detail[k] = {'measure': S.cut_measure(*M.INFO[k], value[k], m['cuts'], cfg.classes[k][1:])}
         res['vggt'] = {'dtype': self.dtype, 'network_seconds': round(float(g.get('network_seconds', 0)), 2)}
         for im in g.get('prepared_images', []): im.close()
         del engine, g
@@ -104,7 +107,7 @@ class Runner:
         # hold rules, passages
         say(STAGES[4]); held = {k: (cfg.threshold(k) is not None and raw[k][1] < cfg.threshold(k)) for k in raw}; J = {k: v for k, v in raw.items() if not held[k]}
         res['judgements'] = {k: {'name': cfg.name[k], 'region': cfg.region[k], 'method': cfg.method[k], 'value': value.get(k), 'class': cfg.classes[k][raw[k][0]] if k in raw else None, 'confidence': raw[k][1] if k in raw else None,
-                                 'threshold': cfg.threshold(k), 'status': note.get(k) or ('보류' if held[k] else '확정')} for k in cfg.order}
+                                 'threshold': cfg.threshold(k), 'status': note.get(k) or ('보류' if held[k] else '확정'), **detail.get(k, {})} for k in cfg.order}
         res['cnn_check'] = chk; cand = S.matches(J, cfg); sel = S.select_c(cand, cfg); cand_raw = S.matches(raw, cfg); ok_ids = {c[1] for c in cand}
         res['plan_C_selected'] = [S.passage_row(c, J, held, cfg) for c in sel]; res['all_matching'] = [S.passage_row(c, J, held, cfg) for c in cand]
         res['blocked_by_hold'] = [S.passage_row(c, raw, held, cfg) for c in cand_raw if c[1] not in ok_ids]; blocked = {r['representative'] for r in res['blocked_by_hold']}

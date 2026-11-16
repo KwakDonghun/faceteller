@@ -43,6 +43,11 @@ def tempered(P, t):
     Q = np.power(np.clip(np.asarray(P, float), 1e-9, 1), 1 / t); return Q / Q.sum(-1, keepdims=True)
 
 
+def cut_measure(label, unit, value, cuts, classes, used=True):
+    """Display record of a measured value: what it is, its unit, the cuts and the classes they separate."""
+    return {'label': label, 'value': None if value is None else float(value), 'unit': unit, 'used_for_judgement': used, 'cuts': None if cuts is None else [float(c) for c in cuts], 'cut_classes': list(classes) if cuts is not None else None}
+
+
 def calibrated(prob, unj, classes, temperature):
     K = len(classes); q = tempered(np.asarray(prob[:K]) / np.sum(prob[:K]), temperature)
     return {'class': classes[int(q.argmax())], 'index': int(q.argmax()), 'confidence': float(q.max()), 'probabilities': [round(float(x), 3) for x in q], 'unjudgeable': unj, 'classes': list(classes)}
@@ -87,7 +92,10 @@ def select_c(cand, cfg):
 def passage_row(c, J, held, cfg):
     g, pid, fs, used, val, r = c
     return {'representative': pid, 'requirement': list(r['requirement']), 'valence': val, 'G': -g, 'regions': sorted({cfg.region[f] for f in fs}),
-            'features': {f: {'class': cl, 'confidence': J[f][1], 'held': bool(held.get(f))} for f, cl in used}, 'translation': r.get('translation'), 'source': r.get('source')}
+            'features': {f: {'class': cl, 'confidence': J[f][1], 'held': bool(held.get(f))} for f, cl in used}, 'translation': r.get('translation'), 'source': r.get('source'),
+            **{k: r.get(k) for k in ('original_text', 'commentary', 'source_detail', 'annotation_status', 'translation_kind', 'split_of')},
+            # what the books say for this condition: one line per kind of statement, with every book and the merged passages
+            'lines': r.get('lines') or [], 'entry_count': r.get('entry_count') or 0, 'hidden_unfavourable': r.get('hidden_unfavourable') or 0, 'omitted_entries': r.get('omitted_entries') or 0}
 
 
 def held_reason(k, cls, blocked_ids, cfg):

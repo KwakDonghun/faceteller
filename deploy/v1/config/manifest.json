@@ -244,8 +244,8 @@
    "git_path": "deploy/v1/config/literature_representatives.json",
    "role": "literature_representatives",
    "delivery": "git",
-   "bytes": 14338,
-   "sha256": "5e989ac3ebd9c1ed9a1e761039a4b940c6152d72f1ea4aaedc95609be6e53d1a",
+   "bytes": 311107,
+   "sha256": "b9c0d97058e7d1d030b03a89439f53ccc2cc44113b01b942769c6ab15b7bd56c",
    "format": "JSON, e.g. {\"items\": [{\"representative\": \"SQ634N-nose-001\", \"requirement\": [\"F19 콧뿌리 높이:높음\"], \"valence\": \"좋음\"}]}"
   },
   {
@@ -344,7 +344,7 @@
    "format": "ONNX, CPU"
   }
  ],
- "total_bytes": 6203811946,
+ "total_bytes": 6204108715,
  "s3_bytes": 6203755597,
- "git_bytes": 56349
+ "git_bytes": 353118
 }
