@@ -6,8 +6,9 @@ import {presetHidden} from './PhotoOverlay';
 import {Printable, Results, type PhotoView} from './Results';
 import {DIRECTIONS, NOTICE, STAGES, type AnalysisResult, type InputMode, type InputSet} from './types';
 type Page = 'home'|'camera'|'camera-retry'|'upload'|'review'|'progress'|'results'|'preview';
-// Server analysis is paused for now: captured photos go to an on-screen check instead.
-const ANALYSIS_ENABLED = false;
+// Server analysis is ON for the lab trial (2026-11-16): photos go to POST /api/v1/analysis. Set to false to show the
+// captured photos for an on-screen check instead (the 'review' page), without sending them.
+const ANALYSIS_ENABLED: boolean = true;
 export default function App() {
   const [page,setPage]=useState<Page>('home'),[notice,setNotice]=useState(''),[stage,setStage]=useState('사진을 전달하고 있습니다…'),[result,setResult]=useState<AnalysisResult|null>(null),[dark,setDark]=useState(false);
   const generation=useRef(0),request=useRef<AbortController|null>(null),mode=useRef<InputMode>('upload'),heading=useRef<HTMLDivElement>(null);
