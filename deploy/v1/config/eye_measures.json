@@ -1,0 +1,54 @@
+{
+ "schema": "faceteller-eye-measures-v1",
+ "decided": "2026-11-16 (user): 눈 크기 by measurement (candidate 10 F01_balanced_dark), classes = rank cut 1-141 큰 편 / 303-400 작은 편 on the check page, into the structure",
+ "cuts_status": "fitted on the 304 CV people so that the recomputed L1 value reproduces the rank-cut labels (f01b_eval.json); test62 not used",
+ "sigma_multiplier": 1.45,
+ "hold_below_boundary_score": 0.7547944687186952,
+ "standardisation_train270": {
+  "w": {
+   "mean": 0.1951097793073832,
+   "sd": 0.008902043527993519
+  },
+  "hp": {
+   "mean": 0.06450060281887592,
+   "sd": 0.009324403141443723
+  },
+  "ho": {
+   "mean": 0.07495076209645937,
+   "sd": 0.013274367695218675
+  },
+  "hs": {
+   "mean": 0.053438967195604786,
+   "sd": 0.009212074596509313
+  }
+ },
+ "features": {
+  "F01": {
+   "name": "눈 크기",
+   "classes": [
+    "작은 편",
+    "보통",
+    "큰 편"
+   ],
+   "formula": "frontal photo: w = mean eye width (33-133, 263-362), ho = mean eye opening read from the picture (eye_dark.dark_opening; eyes clipped by the window or with ho > 1.5 x landmark opening left out), both / sqrt(face area below the brows); value = ((w - mean_w) / sd_w + (ho - mean_ho) / sd_ho) / 2 with standardisation_train270; not judged on a blink frame (blendshape > 0.5) or without a usable opening",
+   "cuts": [
+    -0.9138797610559998,
+    0.10689104062394106
+   ],
+   "sigma": 0.3104670715695287,
+   "between_person_sd": 0.8879866292999019,
+   "reliability_single_photo": 0.8910738985980639,
+   "class_shares_by_mean": [
+    65,
+    162,
+    173
+   ],
+   "rank_label_shares": [
+    98,
+    161,
+    141
+   ],
+   "people_without_value": 0
+  }
+ }
+}

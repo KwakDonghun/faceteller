@@ -1,0 +1,239 @@
+{
+ "schema": "faceteller-features-v1",
+ "note": "the 19 features of the structure: display name, region, ordered classes, how it is judged and which config file holds its numbers",
+ "cnn_parts": {
+  "eye": [
+   "F01",
+   "F02",
+   "F03"
+  ],
+  "brow": [
+   "F04",
+   "F05",
+   "F06",
+   "F18"
+  ],
+  "nose": [
+   "F08",
+   "F09",
+   "F11"
+  ],
+  "mouth": [
+   "F12",
+   "F13",
+   "F14"
+  ],
+  "philtrum": [
+   "F15"
+  ]
+ },
+ "features": {
+  "F01": {
+   "name": "눈 크기",
+   "region": "눈",
+   "classes": [
+    "작은 편",
+    "보통",
+    "큰 편"
+   ],
+   "method": "정면 수치",
+   "config": "eye_measures.json"
+  },
+  "F02": {
+   "name": "눈 가늘기",
+   "region": "눈",
+   "classes": [
+    "가늘고 긴 편",
+    "보통",
+    "세로로 넓은 편"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F03": {
+   "name": "눈꼬리 기울기",
+   "region": "눈",
+   "classes": [
+    "내려간 편",
+    "수평",
+    "올라간 편"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F04": {
+   "name": "눈썹 꼬리 길이",
+   "region": "눈썹",
+   "classes": [
+    "짧은 편",
+    "보통",
+    "긴 편"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F05": {
+   "name": "눈썹 휨",
+   "region": "눈썹",
+   "classes": [
+    "일자",
+    "곡선"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F06": {
+   "name": "눈썹-눈 간격",
+   "region": "눈썹",
+   "classes": [
+    "가까움",
+    "보통",
+    "넓음"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F07": {
+   "name": "미간",
+   "region": "미간",
+   "classes": [
+    "좁음",
+    "보통",
+    "넓음"
+   ],
+   "method": "수치",
+   "config": "numeric_cuts.json"
+  },
+  "F08": {
+   "name": "코 폭",
+   "region": "코",
+   "classes": [
+    "좁음",
+    "보통",
+    "넓음"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F09": {
+   "name": "코 길이",
+   "region": "코",
+   "classes": [
+    "짧음",
+    "보통",
+    "김"
+   ],
+   "method": "정면 수치",
+   "config": "nose_measures.json"
+  },
+  "F10": {
+   "name": "코 높이",
+   "region": "코",
+   "classes": [
+    "낮음",
+    "보통",
+    "높음"
+   ],
+   "method": "VGGT 수치",
+   "config": "nose_measures.json"
+  },
+  "F11": {
+   "name": "코끝 둥근 정도",
+   "region": "코",
+   "classes": [
+    "둥근 편",
+    "좁아지는 편"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F12": {
+   "name": "입 폭",
+   "region": "입",
+   "classes": [
+    "작은 편",
+    "보통",
+    "넓은 편"
+   ],
+   "method": "수치",
+   "config": "numeric_cuts.json"
+  },
+  "F13": {
+   "name": "입술 두께",
+   "region": "입",
+   "classes": [
+    "얇은 편",
+    "보통",
+    "두꺼운 편"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F14": {
+   "name": "입꼬리",
+   "region": "입",
+   "classes": [
+    "내려감",
+    "수평",
+    "올라감"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F15": {
+   "name": "인중 길이",
+   "region": "인중",
+   "classes": [
+    "짧음",
+    "보통",
+    "김"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F17": {
+   "name": "턱 폭",
+   "region": "얼굴형",
+   "classes": [
+    "좁음",
+    "보통",
+    "넓음"
+   ],
+   "method": "정면 수치",
+   "config": "jaw_measures.json"
+  },
+  "F18": {
+   "name": "눈썹 숱",
+   "region": "눈썹",
+   "classes": [
+    "성김",
+    "보통",
+    "짙음"
+   ],
+   "method": "CNN",
+   "config": "cnn_calibration.json"
+  },
+  "F20": {
+   "name": "광대 돌출",
+   "region": "광대",
+   "classes": [
+    "낮음",
+    "보통",
+    "높음"
+   ],
+   "method": "VGGT 맞춤식",
+   "config": "depth_models.json"
+  },
+  "F21": {
+   "name": "입 돌출",
+   "region": "입",
+   "classes": [
+    "들어감",
+    "보통",
+    "나옴"
+   ],
+   "method": "VGGT 맞춤식",
+   "config": "depth_models.json"
+  }
+ }
+}

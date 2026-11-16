@@ -1,0 +1,38 @@
+{
+ "schema": "faceteller-numeric-cuts-v1",
+ "confidence_floor": 0.6,
+ "hold_rule": "boundary score < confidence_floor -> hold (보류)",
+ "score": "facework.pilot.scoring.boundary_scores(sign*value, cuts[0], cuts[1], sigma*1.45)",
+ "features": {
+  "F07": {
+   "classes": [
+    "좁음",
+    "보통",
+    "넓음"
+   ],
+   "sign": 1,
+   "cuts": [
+    0.18737862569860353,
+    0.2305647995277063
+   ],
+   "sigma": 0.023196389404580905,
+   "sigma_multiplier": 1.45,
+   "formula": "distance between the inner ends of the two brow hair paths (face-parsing mask) / face width 234-454"
+  },
+  "F12": {
+   "classes": [
+    "작은 편",
+    "보통",
+    "넓은 편"
+   ],
+   "sign": 1,
+   "cuts": [
+    0.3313389739472191,
+    0.3860907407731212
+   ],
+   "sigma": 0.00947171035187618,
+   "sigma_multiplier": 1.45,
+   "formula": "mouth width 61-291 / face width 234-454 (eye-aligned coordinates)"
+  }
+ }
+}

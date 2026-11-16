@@ -1,0 +1,51 @@
+{
+ "schema": "faceteller-nose-measures-v1",
+ "decided": "2026-11-16 (user): 코 길이 and 코 높이 by measurement, numeric judgement, hold near the cuts; 콧뿌리 높이 removed; 코끝 돌출 renamed 코 높이",
+ "cuts_status": "user decision 2026-11-16: 33% / 67% of the 400-person rank on candidate 1 of each sorted page (rank 1-132 high, 269-400 low); cut = midpoint between the neighbouring ranks",
+ "sigma_multiplier": 1.45,
+ "hold_below_boundary_score": 0.7547944687186952,
+ "features": {
+  "F09": {
+   "name": "코 길이",
+   "classes": [
+    "짧음",
+    "보통",
+    "김"
+   ],
+   "formula": "frontal photo, 2D FaceMesh landmarks: |midpoint(159, 386) - 2| / |234 - 454|; not judged on a blink frame (blink blendshape > 0.5)",
+   "cuts": [
+    0.355245,
+    0.376855
+   ],
+   "sigma": 0.003919272170078336,
+   "between_person_sd": 0.027610035612632065,
+   "reliability_single_photo": 0.9802479196754592,
+   "class_shares_400_by_mean": [
+    132,
+    136,
+    132
+   ]
+  },
+  "F10": {
+   "name": "코 높이",
+   "classes": [
+    "낮음",
+    "보통",
+    "높음"
+   ],
+   "formula": "VGGT 3D landmark points of the frontal photo (front + two obliques): signed distance of point 4 from the line 9 - 199 after removing the eye-axis (33 -> 263) component, / |33 - 263| (vggt3/analyze.py defs()[\"F10_line_gp\"])",
+   "cuts": [
+    0.16106,
+    0.19365
+   ],
+   "sigma": 0.011517390927013165,
+   "between_person_sd": 0.03658919349706565,
+   "reliability_single_photo": 0.9098487514425355,
+   "class_shares_400_by_mean": [
+    132,
+    136,
+    132
+   ]
+  }
+ }
+}

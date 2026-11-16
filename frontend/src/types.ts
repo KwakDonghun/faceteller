@@ -19,7 +19,15 @@ export interface Passage {reading?: Reading | null; passage_id: string | number;
 /** Measured landmark/segmentation lines in EXIF-oriented frontal-photo pixels. Never model attention. */
 export interface OverlayFeature {item_id: string; label: string; source: 'landmark' | 'segmentation'; paths: [number, number][][]; value?: number | null; unit?: string | null}
 export interface FaceOverlay {width: number; height: number; features: OverlayFeature[]}
-export interface AnalysisResult {status: 'COMPLETE' | 'PARTIAL' | 'REINPUT_REQUIRED'; items: Item[]; passages: Passage[]; named_types?: NamedType[]; face_overlay?: FaceOverlay | null; notice?: string; literature_status?: string}
+/** TEMPORARY (2026-11-16) research view: the report of experiments/feature17-20261109/run_person.analyze, shown instead of
+ *  the service cards when the server sends it. No photo and no landmark coordinates. */
+export interface ReportFeatureUse {class: string; confidence: number; held: boolean}
+export interface ReportPassage {representative: string; requirement: string[]; valence: string; G: number; regions: string[]; features: Record<string, ReportFeatureUse>; translation?: string | null; source?: string | null}
+export interface ReportJudgement {name: string; region: string; method: string | null; value: number | null; class: string | null; confidence: number | null; threshold: number | null; status: string}
+export interface ReportCheck {class: string; confidence: number; probabilities?: number[]; classes?: string[]; unjudgeable?: number | null}
+export interface ReportHeld {feature: string; name: string; class: string; confidence: number; threshold: number; reason: string}
+export interface ResearchReport {schema: 'faceteller-research-report-v1'; structure?: string; judgements: Record<string, ReportJudgement>; plan_C_selected: ReportPassage[]; all_matching: ReportPassage[]; blocked_by_hold: ReportPassage[]; held_judgements: ReportHeld[]; cnn_check: Record<string, Record<string, ReportCheck>>; notes?: string[]}
+export interface AnalysisResult {status: 'COMPLETE' | 'PARTIAL' | 'REINPUT_REQUIRED'; items: Item[]; passages: Passage[]; named_types?: NamedType[]; face_overlay?: FaceOverlay | null; notice?: string; literature_status?: string; research_report?: ResearchReport | null}
 export interface Conditions {face: boolean; direction: boolean; size: boolean; brightness: boolean; expression: boolean; message: string; yaw?: number}
 export const REGIONS: Record<string, string> = {eye: '눈', brow: '눈썹', nose: '코', mouth: '입', face: '얼굴형', forehead: '이마', glabella: '미간', under_eye: '애교살', cheekbone: '광대', ear: '귀', philtrum: '인중', mole: '점'};
 export const FEATURES: Record<string, string> = {eyelid: '눈꺼풀', sclera_show: '흰자 노출', eye_depth: '눈 깊이', brow_shape: '눈썹 모양', brow_thickness: '눈썹 굵기', brow_density: '눈썹 밀도', brow_tail_clarity: '눈썹 꼬리 선명도', nose_tip: '코끝 모양', nostril_show: '콧구멍 노출', alar_fullness: '콧방울 풍만함', lip_bow: '윗입술 활 모양', face_shape: '얼굴 윤곽', chin_shape: '턱끝 모양', cheekbone: '광대 돌출', cheek_fullness: '볼살', nose_projection: '코끝 돌출', nose_bridge: '코뿌리 높이', lip_projection: '입 돌출', chin_projection: '턱 돌출'};

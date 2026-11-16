@@ -1,0 +1,55 @@
+{
+ "schema": "faceteller-selection-rules-v1",
+ "decided": "2026-11-16",
+ "confidence_floor": {
+  "value": 0.6,
+  "applies_to": "CNN judgements (F02-F06, F08, F11, F13-F15, F18) and numeric F07, F12; the measurement features F01, F09, F10, F17 use their own hold rule; F20 / F21 are not held",
+  "decided": "2026-11-16 (user), e2e_v7.json"
+ },
+ "candidate": "every requirement condition met by a judged feature (alternatives joined by 또는, all atoms of an alternative)",
+ "G": "single feature: its score; several: geometric mean of the scores",
+ "plan": "C (round-robin by region; user decision 2026-11-16)",
+ "order": [
+  "candidates sorted by G descending (no forced last tier for F11 or any passage); ties: representative id",
+  "round: walk the sorted list and take a passage if none of its regions has been taken in this round and it does not exceed unfavourable_max; a passage covering two regions uses both turns",
+  "when no further passage can be taken in a round, start a new round with the remaining passages; stop at total or when a round takes nothing"
+ ],
+ "limits": {
+  "same_region_max": null,
+  "unfavourable_max": 2,
+  "total": 5
+ },
+ "previous_rule": "until 2026-11-16: one list by G, same region <= 3, unfavourable <= 2, total 5 (e2e_v13.json \"current selection\")",
+ "reference_code": "experiments/feature17-20261109/e2e_v13.py select_c (also run_person.py select_c)",
+ "regions": {
+  "F01": "눈",
+  "F02": "눈",
+  "F03": "눈",
+  "F04": "눈썹",
+  "F05": "눈썹",
+  "F06": "눈썹",
+  "F18": "눈썹",
+  "F07": "미간",
+  "F08": "코",
+  "F09": "코",
+  "F10": "코",
+  "F11": "코",
+  "F19": "코",
+  "F12": "입",
+  "F13": "입",
+  "F14": "입",
+  "F21": "입",
+  "F15": "인중",
+  "F17": "얼굴형",
+  "F20": "광대"
+ },
+ "depth_features": "F20, F21 from depth_models.json (돌출됨 -> 높음 / 나옴, 돌출안됨 -> 보통), not held by the confidence floor",
+ "nose_features": "F09 코 길이 and F10 코 높이 (renamed from 코끝 돌출) from nose_measures.json: numeric, held when the boundary score is below 0.755 (within one sigma of a cut); cuts = 33% / 67% of the 400-person rank (user, 2026-11-16)",
+ "eye_features": "F01 눈 크기 from eye_measures.json (candidate 10: eye width and picture-read opening over sqrt(face area below the brows)): numeric, held when the boundary score is below 0.755; the picture-read opening is in eye_dark.py (dark_opening) and the face area in eye_page.py (face_below_brows) - code to port",
+ "removed_features": [
+  "F16",
+  "F19 콧뿌리 높이 (2026-11-16)"
+ ],
+ "jaw_features": "F17 턱 폭 from jaw_measures.json (angle at the chin tip 152 between the jaw corners 172 / 397, frontal 2D landmarks; not pitch-adjusted): numeric, held when the boundary score is below 0.755; the face CNN is not used (the face crop is still needed as the context tile of the other parts)",
+ "reference": "e2e_v13.json"
+}

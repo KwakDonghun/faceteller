@@ -1,0 +1,455 @@
+{
+ "schema": "faceteller-literature-reps-v1",
+ "source": "feat45/final_set.py (strict, sensitive unfavourable excluded, majority valence)",
+ "text_note": "translation / source: the representative passage of the group, from feat45/final_set.json (shown as-is by the research view)",
+ "items": [
+  {
+   "representative": "ZD646B-brow-002",
+   "requirement": [
+    "F05 눈썹 휨:일자"
+   ],
+   "valence": "좋음",
+   "translation": "눈썹 털이 평평하면 존귀한 사람이다.",
+   "source": "조담경"
+  },
+  {
+   "representative": "CX638-brow-0102",
+   "requirement": [
+    "F04 눈썹 꼬리 길이:긴 편",
+    "F18 눈썹 숱:짙음"
+   ],
+   "valence": "좋음",
+   "translation": "눈썹이 짙고 길면 반드시 재산이 풍부한 상이다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "CX638-mouth-0069",
+   "requirement": [
+    "F14 입꼬리:내려감"
+   ],
+   "valence": "나쁨",
+   "translation": "입꼬리가 아래로 처지면 녹이 없다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "CX639-brow-0301",
+   "requirement": [
+    "F04 눈썹 꼬리 길이:긴 편"
+   ],
+   "valence": "좋음",
+   "translation": "두 눈썹이 귀밑머리에 들어가면 가슴에 세상 으뜸의 재능을 품는다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "CX639-brow-0308",
+   "requirement": [
+    "F18 눈썹 숱:짙음"
+   ],
+   "valence": "나쁨",
+   "translation": "눈썹이 짙으면 막힘이 많다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "CX639-eye-0147",
+   "requirement": [
+    "F01 눈 크기:큰 편",
+    "F02 눈 가늘기:가늘고 긴 편"
+   ],
+   "valence": "좋음",
+   "translation": "어찌 아름다운 아내를 얻음을 아는가? 두 눈이 길고 가는 것을 보라.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ632B-eye-009",
+   "requirement": [
+    "F01 눈 크기:큰 편"
+   ],
+   "valence": "좋음",
+   "translation": "눈이 큰 자는 흔히 기예와 학업을 닦는다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "CX639-glabella-0286",
+   "requirement": [
+    "F07 미간:넓음"
+   ],
+   "valence": "좋음",
+   "translation": "푸른 기름 수레와 붉은 깃발은 인당이 넓어 위에 봉해지기 때문이다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "CX639-mouth-0252",
+   "requirement": [
+    "F14 입꼬리:올라감"
+   ],
+   "valence": "좋음",
+   "translation": "입이 활처럼 하늘을 향하면 이름이 금궐에 오른다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ638CX-nose-009a",
+   "requirement": [
+    "F10 코 높이:높음"
+   ],
+   "valence": "좋음",
+   "translation": "준두(, 코끝)가 솟으면 성실하고 믿음직하다고 한다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "LZC63880-forms-007",
+   "requirement": [
+    "F10 코 높이:낮음",
+    "F20 광대 돌출:낮음"
+   ],
+   "valence": "나쁨",
+   "translation": "광대가 깎이고 코가 낮으면 평생 늙도록 가난하고 고생한다고 한다.",
+   "source": "유장상법"
+  },
+  {
+   "representative": "LZC63880-forms-028",
+   "requirement": [
+    "F05 눈썹 휨:일자",
+    "F07 미간:넓음",
+    "F12 입 폭:넓은 편"
+   ],
+   "valence": "좋음",
+   "translation": "인당이 열리고 입이 크며 눈썹이 가로놓이면 아버지에게 앞길이 있다고 한다.",
+   "source": "유장상법"
+  },
+  {
+   "representative": "SQ632A-brow-005",
+   "requirement": [
+    "F04 눈썹 꼬리 길이:짧은 편"
+   ],
+   "valence": "나쁨",
+   "translation": "(눈썹이) 짧고 촉박하면 형제에게 마땅치 않다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ632A-brow-019",
+   "requirement": [
+    "F04 눈썹 꼬리 길이:긴 편",
+    "F07 미간:넓음"
+   ],
+   "valence": "좋음",
+   "translation": "인당(, 두 눈썹 사이)이 넓고 (눈썹이) 둘로 나뉘어 귀밑머리로 들어가면 경상()의 지위를 어찌 의심하랴.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "LZC63880-officials-016",
+   "requirement": [
+    "F09 코 길이:짧음"
+   ],
+   "valence": "나쁨",
+   "translation": "코가 짧으면 감히 영화와 번창을 허락하지 못한다고 한다.",
+   "source": "유장상법"
+  },
+  {
+   "representative": "LZC63880-officials-023",
+   "requirement": [
+    "F13 입술 두께:얇은 편",
+    "F21 입 돌출:나옴"
+   ],
+   "valence": "나쁨",
+   "translation": "입이 뾰족하고 얇으면 시비가 있다고 한다.",
+   "source": "유장상법"
+  },
+  {
+   "representative": "SQ632A-brow-016",
+   "requirement": [
+    "F05 눈썹 휨:곡선"
+   ],
+   "valence": "좋음",
+   "translation": "곽임종이 말하기를 「눈썹이 초승달 모양 같으면 명예가 사방에 들린다」라고 하였다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "LZC70286-verse-010",
+   "requirement": [
+    "F20 광대 돌출:높음"
+   ],
+   "valence": "나쁨",
+   "translation": "광대가 높으면 도리어 잘못을 행하기 좋아한다고 한다.",
+   "source": "유장상법"
+  },
+  {
+   "representative": "SQ632C-mouth-052",
+   "requirement": [
+    "F12 입 폭:작은 편"
+   ],
+   "valence": "나쁨",
+   "translation": "입이 작은 것이 다섯째 극이니, 넉넉한 의식이 있지 않다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ632A-brow-010",
+   "requirement": [
+    "F04 눈썹 꼬리 길이:보통"
+   ],
+   "valence": "중립",
+   "translation": "(눈썹이) 눈과 같은 길이면 형제가 하나둘이다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ632A-brow-037",
+   "requirement": [
+    "F06 눈썹-눈 간격:가까움"
+   ],
+   "valence": "나쁨",
+   "translation": "『광감집』에 이르기를 「눈썹은 나계의 별이 되고 눈은 해와 달의 형상이 된다. 눈썹을 보아 바싹 붙어 눈과 서로 이어져 끊이지 않는 자는, 나계 두 별이 태음·태양(, 두 눈)을 침범한 것이니, 태음·태양은 해와 달의 대()이자 한 몸의 주인이라, 스물여섯 한에서 스물아홉까지 이롭지 않고 서른일곱·여덟·아홉도 이롭지 않다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ634N-nose-035",
+   "requirement": [
+    "F11 코끝 둥근 정도:둥근 편"
+   ],
+   "valence": "좋음",
+   "translation": "준두(, 코끝)가 둥글고 살찌면 밥이 넉넉하고 옷이 풍성하다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ632C-eye-009",
+   "requirement": [
+    "F01 눈 크기:보통"
+   ],
+   "valence": "좋음",
+   "translation": "크지도 작지도 않으면 귀하다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ632C-mouth-003",
+   "requirement": [
+    "F21 입 돌출:나옴"
+   ],
+   "valence": "나쁨",
+   "translation": "『대통부()』에 이르기를 「입이 불을 부는 듯하면 춥고 궁색한 듯하다」고 하였다. 취()란 오므려 모은 것이다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ633E-eye-036",
+   "requirement": [
+    "F01 눈 크기:작은 편",
+    "F04 눈썹 꼬리 길이:긴 편"
+   ],
+   "valence": "좋음",
+   "translation": "눈이 짧고 눈썹이 길면 전장()이 더욱 늘어난다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ633FB-brow-014",
+   "requirement": [
+    "F06 눈썹-눈 간격:넓음"
+   ],
+   "valence": "좋음",
+   "translation": "눈썹이 높아 이마 가운데에 자리한 자는 크게 귀하다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ633FB-brow-019",
+   "requirement": [
+    "F18 눈썹 숱:성김"
+   ],
+   "valence": "나쁨",
+   "translation": "눈썹이 엷어 없는 듯한 자는 교활하고 아첨함이 많다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ633FB-brow-036",
+   "requirement": [
+    "F05 눈썹 휨:일자",
+    "F06 눈썹-눈 간격:넓음"
+   ],
+   "valence": "좋음",
+   "translation": "눈썹이 만약 높고 곧으면 몸이 마땅히 청직(, 깨끗한 관직)에 오른다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ633FB-chin-002",
+   "requirement": [
+    "F17 턱 폭:넓음"
+   ],
+   "valence": "좋음",
+   "translation": "함골(, 턱뼈)이 넓은 자는 부유하고,",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ633FB-chin-006",
+   "requirement": [
+    "F17 턱 폭:좁음"
+   ],
+   "valence": "나쁨",
+   "translation": "마주 보아 뺨()이 보이지 않으면 '이 사람은 어디서 왔는가' 한다. 〈크게 좋지 않다〉",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ634M-mouth-005",
+   "requirement": [
+    "F12 입 폭:넓은 편",
+    "F13 입술 두께:두꺼운 편"
+   ],
+   "valence": "좋음",
+   "translation": "가로로 넓고 두터운 자는 복되고 부유하다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ634M-mouth-017",
+   "requirement": [
+    "F12 입 폭:넓은 편"
+   ],
+   "valence": "좋음",
+   "translation": "입이 주먹을 넣을 수 있는 자는 장수와 재상으로 드나든다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ634M-mouth-117",
+   "requirement": [
+    "F13 입술 두께:얇은 편"
+   ],
+   "valence": "나쁨",
+   "translation": "(입술이) 얇으면 송사가 많으니, 이에 의거하여 말하면 반드시 어긋나지 않는다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ634M-mouth-086",
+   "requirement": [
+    "F13 입술 두께:두꺼운 편"
+   ],
+   "valence": "좋음",
+   "translation": "위아래가 모두 두터운 자는 충성스럽고 믿음직한 사람이다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ634N-nose-020",
+   "requirement": [
+    "F11 코끝 둥근 정도:좁아지는 편"
+   ],
+   "valence": "나쁨",
+   "translation": "준두(, 코끝)가 뾰족하고 가늘면 간사한 계책을 즐겨 꾸민다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ634N-nose-031",
+   "requirement": [
+    "F10 코 높이:높음",
+    "F11 코끝 둥근 정도:둥근 편"
+   ],
+   "valence": "좋음",
+   "translation": "준두(, 코끝)가 풍만하게 솟으면 부귀가 견줄 데 없다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ634N-nose-050",
+   "requirement": [
+    "F09 코 길이:김"
+   ],
+   "valence": "좋음",
+   "translation": "코가 길면 장수하여 백 년을 넘긴다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ634N-philtrum-030",
+   "requirement": [
+    "F15 인중 길이:짧음"
+   ],
+   "valence": "나쁨",
+   "translation": "인중이 짧고 촉박하면 자손이 넉넉하지 않다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ637RB-eye-051",
+   "requirement": [
+    "F02 눈 가늘기:세로로 넓은 편"
+   ],
+   "valence": "중립",
+   "translation": "자()는 눈이다. 대개 둥글게 이루어진 자는 말과 행동이 깊고 그윽하여 사람들이 그것을 헤아릴 수 없으니, 그러므로 성역의 추기()라 이를 수 있다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ639R-brow-003#a",
+   "requirement": [
+    "F04 눈썹 꼬리 길이:긴 편",
+    "F05 눈썹 휨:일자"
+   ],
+   "valence": "좋음",
+   "translation": "혹은 일()자 모양으로 눈을 지나고, 혹은 높고 길어 귀밑머리 끝()으로 들어가며, 혹은 초승달처럼 휘었으면, 모두 하늘이 준 작위()를 누리고 장수하다 생을 마친다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "SQ639R-brow-003#b",
+   "requirement": [
+    "F04 눈썹 꼬리 길이:긴 편+F06 눈썹-눈 간격:넓음"
+   ],
+   "valence": "좋음",
+   "translation": "혹은 일()자 모양으로 눈을 지나고, 혹은 높고 길어 귀밑머리 끝()으로 들어가며, 혹은 초승달처럼 휘었으면, 모두 하늘이 준 작위()를 누리고 장수하다 생을 마친다.",
+   "source": "신상전편"
+  },
+  {
+   "representative": "XF01-eye-006",
+   "requirement": [
+    "F03 눈꼬리 기울기:올라간 편"
+   ],
+   "valence": "좋음",
+   "translation": "눈꼬리가 하늘을 향하면 복과 녹이 끊임없이 이어진다.",
+   "source": "허부상법"
+  },
+  {
+   "representative": "XF02-nose-002",
+   "requirement": [
+    "F08 코 폭:좁음",
+    "F10 코 높이:높음"
+   ],
+   "valence": "나쁨",
+   "translation": "코가 좁고 높아 위태로우면 형제가 미약하고 여윈다.",
+   "source": "허부상법"
+  },
+  {
+   "representative": "ZD646A-nose-010",
+   "requirement": [
+    "F08 코 폭:넓음",
+    "F09 코 길이:김"
+   ],
+   "valence": "좋음",
+   "translation": "코가 넓고 길면 기예가 비상하다.",
+   "source": "조담경"
+  },
+  {
+   "representative": "ZD646A-eye-038",
+   "requirement": [
+    "F03 눈꼬리 기울기:내려간 편"
+   ],
+   "valence": "나쁨",
+   "translation": "눈꼬리가 양쪽 모두 처지면 일생 이별이 많다.",
+   "source": "조담경"
+  },
+  {
+   "representative": "ZD646A-eye-069",
+   "requirement": [
+    "F01 눈 크기:작은 편"
+   ],
+   "valence": "나쁨",
+   "translation": "눈이 작으면 끝내 녹()이 없다.",
+   "source": "조담경"
+  },
+  {
+   "representative": "ZD646A-mouth-021",
+   "requirement": [
+    "F12 입 폭:넓은 편",
+    "F13 입술 두께:얇은 편"
+   ],
+   "valence": "나쁨",
+   "translation": "입술이 가늘고 가로로 길면 말이 많고 신의가 적다.",
+   "source": "조담경"
+  },
+  {
+   "representative": "ZD646A-mouth-036",
+   "requirement": [
+    "F13 입술 두께:얇은 편",
+    "F14 입꼬리:내려감"
+   ],
+   "valence": "나쁨",
+   "translation": "입이 얇고 두 모서리가 처지면 대개 남에게 속는다.",
+   "source": "조담경"
+  }
+ ]
+}

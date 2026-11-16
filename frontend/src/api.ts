@@ -1,4 +1,4 @@
-import {DIRECTIONS, VALENCES, type AnalysisResult, type Direction, type InputMode, type InputSet, type FaceOverlay, type NamedType, type OverlayFeature, type Reading} from './types';
+import {DIRECTIONS, VALENCES, type AnalysisResult, type Direction, type InputMode, type InputSet, type FaceOverlay, type NamedType, type OverlayFeature, type Reading, type ResearchReport} from './types';
 export class AnalysisError extends Error {constructor(message: string, public direction?: Direction, public code?: string) {super(message);}}
 const record = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
 export function validateResult(v: unknown): AnalysisResult {
@@ -13,6 +13,7 @@ export function validateResult(v: unknown): AnalysisResult {
   }
   if (v.named_types !== undefined) v.named_types = Array.isArray(v.named_types) ? v.named_types.filter(validNamedType) : [];
   if (v.face_overlay !== undefined && v.face_overlay !== null) v.face_overlay = validOverlay(v.face_overlay);
+  if (v.research_report !== undefined) v.research_report = validReport(v.research_report);
   return v as unknown as AnalysisResult;
 }
 const text = (value: unknown) => typeof value === 'string' && value.trim().length > 0;
@@ -22,6 +23,21 @@ function validReading(r: unknown): r is Reading {
   return record(r) && text(r.title) && text(r.meaning) && valence(r.valence) && optionalText(r.valence_label)
     && (r.meaning_basis === undefined || r.meaning_basis === 'representative' || r.meaning_basis === 'group')
     && (r.topics === undefined || (Array.isArray(r.topics) && r.topics.every(t => typeof t === 'string')));
+}
+/** Temporary research report (see types.ts): shown only when every table is well formed; otherwise dropped, never repaired. */
+export function validReport(r: unknown): ResearchReport | null {
+  if (!record(r) || r.schema !== 'faceteller-research-report-v1' || !record(r.judgements) || !record(r.cnn_check)) return null;
+  const num = (n: unknown) => typeof n === 'number' && Number.isFinite(n), numOrNull = (n: unknown) => n === null || n === undefined || num(n);
+  const passage = (p: unknown) => record(p) && text(p.representative) && Array.isArray(p.requirement) && p.requirement.length > 0 && p.requirement.every(text) && text(p.valence) && num(p.G)
+    && Array.isArray(p.regions) && p.regions.every(text) && record(p.features) && Object.values(p.features).every(f => record(f) && text(f.class) && num(f.confidence) && typeof f.held === 'boolean')
+    && optionalText(p.translation) && optionalText(p.source);
+  const lists = [r.plan_C_selected, r.all_matching, r.blocked_by_hold];
+  if (!lists.every(l => Array.isArray(l) && l.length <= 200 && l.every(passage)) || (r.plan_C_selected as unknown[]).length > 5) return null;
+  if (!Object.values(r.judgements).every(j => record(j) && text(j.name) && text(j.region) && text(j.status) && optionalText(j.method) && optionalText(j.class) && numOrNull(j.value) && numOrNull(j.confidence) && numOrNull(j.threshold))) return null;
+  if (!Array.isArray(r.held_judgements) || !r.held_judgements.every(h => record(h) && text(h.feature) && text(h.name) && text(h.class) && num(h.confidence) && num(h.threshold) && text(h.reason))) return null;
+  if (!Object.values(r.cnn_check).every(c => record(c) && Object.values(c).every(e => record(e) && text(e.class) && num(e.confidence)))) return null;
+  if (r.notes !== undefined && !(Array.isArray(r.notes) && r.notes.every(text))) return null;
+  return r as unknown as ResearchReport;
 }
 const MAX_OVERLAY_POINTS = 20000;
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);

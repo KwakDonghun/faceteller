@@ -1,0 +1,48 @@
+{
+ "schema": "faceteller-depth-cuts-deploy-v1",
+ "status": "superseded 2026-11-16 by depth_models.json (label-fitted formulas); kept as the record of the 2026-11-12 team cuts",
+ "source": "depth_cuts/depth_cuts_20261112.json (team cut file)",
+ "score": "boundary_scores(value, lower, upper, sigma*1.45)",
+ "features": {
+  "F10": {
+   "definition": "F10_ref",
+   "classes": [
+    "낮음",
+    "보통",
+    "높음"
+   ],
+   "upper": 0.260835,
+   "lower": 0.195235,
+   "sigma": 0.014539872056828999,
+   "sigma_multiplier": 1.45
+  },
+  "F19": {
+   "definition": "F19_bridge_mid",
+   "classes": [
+    "낮음",
+    "보통",
+    "높음"
+   ],
+   "upper": 0.14652,
+   "lower": 0.088285,
+   "sigma": 0.011274623616729797,
+   "sigma_multiplier": 1.45
+  },
+  "F20": {
+   "status": "hold",
+   "reason": "no cuts in the team file"
+  },
+  "F21": {
+   "definition": "F21_ref",
+   "classes": [
+    "들어감",
+    "보통",
+    "나옴"
+   ],
+   "upper": 0.169975,
+   "lower": 0.096605,
+   "sigma": 0.01703988405892108,
+   "sigma_multiplier": 1.45
+  }
+ }
+}

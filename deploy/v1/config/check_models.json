@@ -1,0 +1,146 @@
+{
+ "schema": "faceteller-check-models-v1",
+ "note": "OPTIONAL check-only CNNs (never used for the passages; not on S3). folder is relative to the check-models directory; old = heads of the structure model set that the structure no longer uses",
+ "old_heads": {
+  "F01": {
+   "part": "eye",
+   "classes": [
+    "작은 편",
+    "보통",
+    "큰 편"
+   ],
+   "temperature": 2.6,
+   "tag": "예전 CNN(사람 레이블)"
+  },
+  "F07": {
+   "part": "glabella",
+   "classes": [
+    "좁음",
+    "보통",
+    "넓음"
+   ],
+   "temperature": 1.9000000000000001,
+   "tag": "예전 CNN(사람 레이블)"
+  },
+  "F09": {
+   "part": "nose",
+   "classes": [
+    "짧음",
+    "보통",
+    "김"
+   ],
+   "temperature": 1.5,
+   "tag": "예전 CNN(사람 레이블)"
+  },
+  "F12": {
+   "part": "mouth",
+   "classes": [
+    "작은 편",
+    "보통",
+    "넓은 편"
+   ],
+   "temperature": 1.4,
+   "tag": "예전 CNN(사람 레이블)"
+  },
+  "F17": {
+   "part": "face",
+   "classes": [
+    "좁음",
+    "보통",
+    "넓음"
+   ],
+   "temperature": 2.4000000000000004,
+   "tag": "예전 CNN(사람 레이블)"
+  }
+ },
+ "models": [
+  {
+   "feature": "F01",
+   "head": "F01",
+   "folder": "candidate-v2-f01b",
+   "part": "eye",
+   "classes": [
+    "작은 편",
+    "보통",
+    "큰 편"
+   ],
+   "temperature": 1.3,
+   "tag": "새 CNN(순위 레이블)"
+  },
+  {
+   "feature": "F09",
+   "head": "F09",
+   "folder": "candidate-v2-noserank-f09",
+   "part": "nose",
+   "classes": [
+    "짧음",
+    "보통",
+    "김"
+   ],
+   "temperature": 1.2000000000000002,
+   "tag": "새 CNN(순위 레이블)"
+  },
+  {
+   "feature": "F17",
+   "head": "F17",
+   "folder": "candidate-v2-jawrank",
+   "part": "face",
+   "classes": [
+    "좁음",
+    "보통",
+    "넓음"
+   ],
+   "temperature": 1.2000000000000002,
+   "tag": "새 CNN(순위 레이블)"
+  },
+  {
+   "feature": "F10",
+   "head": "F10",
+   "folder": "candidate-v2-f1019",
+   "part": "nose",
+   "classes": [
+    "낮음",
+    "보통",
+    "높음"
+   ],
+   "temperature": 1.0,
+   "tag": "CNN(11월 15일 코끝 돌출 레이블, 보정 없음)"
+  },
+  {
+   "feature": "F20",
+   "head": "F20",
+   "folder": "candidate-v2-f2021",
+   "part": "face",
+   "classes": [
+    "돌출안됨",
+    "돌출됨"
+   ],
+   "temperature": 1.0,
+   "tag": "CNN(11월 15일 레이블, 보정 없음)"
+  },
+  {
+   "feature": "F21",
+   "head": "F21",
+   "folder": "candidate-v2-f2021",
+   "part": "face",
+   "classes": [
+    "돌출안됨",
+    "돌출됨"
+   ],
+   "temperature": 1.0,
+   "tag": "CNN 얼굴 크롭(11월 15일 레이블, 보정 없음)"
+  },
+  {
+   "feature": "F21",
+   "head": "F21m",
+   "folder": "candidate-v2-f2021",
+   "part": "mouth",
+   "classes": [
+    "돌출안됨",
+    "돌출됨"
+   ],
+   "temperature": 1.0,
+   "tag": "CNN 입 크롭(11월 15일 레이블, 보정 없음)"
+  }
+ ]
+}

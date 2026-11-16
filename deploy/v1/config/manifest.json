@@ -1,0 +1,350 @@
+{
+ "schema": "faceteller-deploy-manifest-v1",
+ "created": "2026-11-14",
+ "updated": "2026-11-16",
+ "note": "git files are copied to deploy/v1/config/ in the repository (git_path); s3 files keep their path under the models directory",
+ "files": [
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/eye_fold0.pt",
+   "role": "CNN eye fold 0",
+   "delivery": "s3",
+   "bytes": 44796043,
+   "sha256": "cef8238061ec6e0ff65dd358ad1251c6254892ad983f801028ad7dcc3ed28fb9",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/eye_fold1.pt",
+   "role": "CNN eye fold 1",
+   "delivery": "s3",
+   "bytes": 44796043,
+   "sha256": "64bf3adfcb1aa0d75c067af36d21028f0e9195760aeae3c3e277f5f604779aa3",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/eye_fold2.pt",
+   "role": "CNN eye fold 2",
+   "delivery": "s3",
+   "bytes": 44796043,
+   "sha256": "9e99e1a9ec537cbba729b0eb21f9e7659b34f266576243813ab316f3080616bd",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/eye_fold3.pt",
+   "role": "CNN eye fold 3",
+   "delivery": "s3",
+   "bytes": 44796043,
+   "sha256": "c4b0c26f8f504e91eb6f4183b4fa3b04b0c8dd2b016aec9784dca47bd84760c6",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/eye_fold4.pt",
+   "role": "CNN eye fold 4",
+   "delivery": "s3",
+   "bytes": 44796043,
+   "sha256": "8329018feabaf1e7177bb926573c498731834a68d6fa6355374d17f4deac70ee",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/brow_fold0.pt",
+   "role": "CNN brow fold 0",
+   "delivery": "s3",
+   "bytes": 44804945,
+   "sha256": "9b4aa1e55db91620295eb3a33c2d12639692271e5f5abd856f2ec495f3829ba4",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/brow_fold1.pt",
+   "role": "CNN brow fold 1",
+   "delivery": "s3",
+   "bytes": 44804945,
+   "sha256": "44385b26d12732b21ae47c97455805c7d0170326ef162e32b3280df49156427e",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/brow_fold2.pt",
+   "role": "CNN brow fold 2",
+   "delivery": "s3",
+   "bytes": 44804945,
+   "sha256": "40b4f43c3b4f730b919501ceb709ef8c0ffd686acb26d14fdf4cc26cf431abfc",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/brow_fold3.pt",
+   "role": "CNN brow fold 3",
+   "delivery": "s3",
+   "bytes": 44804945,
+   "sha256": "114a6dfa56d0e96ba4003d43a667caa746fa0f62a5d56398e7aaa4f4a38bc8e6",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/brow_fold4.pt",
+   "role": "CNN brow fold 4",
+   "delivery": "s3",
+   "bytes": 44804945,
+   "sha256": "21120590d83c852f84dd6a5ead1079da72c26cf26cfb7dc3af55f5153853994b",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/nose_fold0.pt",
+   "role": "CNN nose fold 0",
+   "delivery": "s3",
+   "bytes": 44794127,
+   "sha256": "08b59fbafd46655698a8d837ac934b747f87553ef35e60cacbe49dbbc01f3bdf",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/nose_fold1.pt",
+   "role": "CNN nose fold 1",
+   "delivery": "s3",
+   "bytes": 44794127,
+   "sha256": "8fd80f71eb35f762194e894c2a930666b9d8daae0c20bd52361ef158458fca10",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/nose_fold2.pt",
+   "role": "CNN nose fold 2",
+   "delivery": "s3",
+   "bytes": 44794127,
+   "sha256": "c5363a74c3ab6c1e984051f74a0536026e5de78252ac33b5e08b4016b704a555",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/nose_fold3.pt",
+   "role": "CNN nose fold 3",
+   "delivery": "s3",
+   "bytes": 44794127,
+   "sha256": "5fbb6a3e669f06fe0193bfe9328e4ffc4a2be84c4c2da251f7ab0d637387d018",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/nose_fold4.pt",
+   "role": "CNN nose fold 4",
+   "delivery": "s3",
+   "bytes": 44794127,
+   "sha256": "aea57d48eb9b9b9033c011e73d932d635dd76e136ef157ae2d1e514658ec7569",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/mouth_fold0.pt",
+   "role": "CNN mouth fold 0",
+   "delivery": "s3",
+   "bytes": 44796307,
+   "sha256": "cdf1912b62288961a66ff69f49fecfccada1078b82e5f8aa8a3d7a61199d4eee",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/mouth_fold1.pt",
+   "role": "CNN mouth fold 1",
+   "delivery": "s3",
+   "bytes": 44796307,
+   "sha256": "1d71093a621d128c7a253bb81e32d605cec0af5d988d33dc4bc604ac4385cf0d",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/mouth_fold2.pt",
+   "role": "CNN mouth fold 2",
+   "delivery": "s3",
+   "bytes": 44796307,
+   "sha256": "2e5b0135b8ef19c75fcf1b8b25307a78139119e825fb52de6c267563a1a6ffeb",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/mouth_fold3.pt",
+   "role": "CNN mouth fold 3",
+   "delivery": "s3",
+   "bytes": 44796307,
+   "sha256": "e40f9a1cdb082a77c95e4dc0c15434d538c4b1489f4178b3ee60dc763b82a41c",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/mouth_fold4.pt",
+   "role": "CNN mouth fold 4",
+   "delivery": "s3",
+   "bytes": 44796307,
+   "sha256": "27e04e7debb9723f936527f84d9b648ae6cb4e503203d1a7ee9b7fbc61b7928c",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/philtrum_fold0.pt",
+   "role": "CNN philtrum fold 0",
+   "delivery": "s3",
+   "bytes": 44787275,
+   "sha256": "153c70ce1dbaed757bbb071838a35cc892de0b4d66c20d8dbb0a3bd5692d7ff7",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/philtrum_fold1.pt",
+   "role": "CNN philtrum fold 1",
+   "delivery": "s3",
+   "bytes": 44787275,
+   "sha256": "11511e0403231dd14e96641b070bb7da909b37c641a58b21ed1c0e82d9af902f",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/philtrum_fold2.pt",
+   "role": "CNN philtrum fold 2",
+   "delivery": "s3",
+   "bytes": 44787275,
+   "sha256": "e1fc332a3f3b06e309d63103d06073226732d7103c78a630b3173c88bdcba621",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/philtrum_fold3.pt",
+   "role": "CNN philtrum fold 3",
+   "delivery": "s3",
+   "bytes": 44787275,
+   "sha256": "b1f2aeb814fc15d9b18f77ace1ffa40e5f4db4659a5fb13ed130120017a0701c",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/candidate-v2-posenorm/models/philtrum_fold4.pt",
+   "role": "CNN philtrum fold 4",
+   "delivery": "s3",
+   "bytes": 44787275,
+   "sha256": "3aef95a7f21d10e9b113d2192070e3b4c4d47c6a4fd5b64d408f98e6d0e2e84a",
+   "format": "torch.save dict: {'state_dict': ResNet18 PartNet weights, 'sizes': [K-1 per head], 'has_unj': [bool per head], 'heads': ['F01',...]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/posenorm_template.npy",
+   "role": "pose-normalisation template (mean shape of train270; kept out of git)",
+   "delivery": "s3",
+   "bytes": 11600,
+   "sha256": "1d48bea3cc21b1287e2bd78db66a3f5a4325bbc0aeae365fe52a3edc5dd8d7b6",
+   "format": "numpy float64 (478, 3), unit-scale rigid-point template"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/cnn_calibration.json",
+   "git_path": "deploy/v1/config/cnn_calibration.json",
+   "role": "cnn_calibration",
+   "delivery": "git",
+   "bytes": 1677,
+   "sha256": "837741c49f6af47e7ea3f35da2379f9d634483b259a09358605cc52f793ce6aa",
+   "format": "JSON, e.g. {\"features\": {\"F02\": {\"classes\": [\"가늘고 긴 편\",\"보통\",\"세로로 넓은 편\"], \"temperature\": 1.2}, ...}}"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/numeric_cuts.json",
+   "git_path": "deploy/v1/config/numeric_cuts.json",
+   "role": "numeric_cuts",
+   "delivery": "git",
+   "bytes": 936,
+   "sha256": "50861394695d6b4ec7c8c46cc0524828d19fe7a578d8d068080958d52f054bc3",
+   "format": "JSON, e.g. {\"features\": {\"F12\": {\"sign\": 1, \"cuts\": [0.31, 0.36], \"sigma\": 0.0095, \"sigma_multiplier\": 1.45}}}"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/depth_cuts.json",
+   "git_path": "deploy/v1/config/depth_cuts.json",
+   "role": "depth_cuts",
+   "delivery": "git",
+   "bytes": 1094,
+   "sha256": "afe2893583ec19dd2b78c17ec7ca589f1db8388f21d6753aa49d84fac18d5885",
+   "format": "JSON, e.g. {\"features\": {\"F19\": {\"definition\": \"F19_bridge_mid\", \"lower\": 0.0883, \"upper\": 0.1465, \"sigma\": 0.0113}}}"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/literature_representatives.json",
+   "git_path": "deploy/v1/config/literature_representatives.json",
+   "role": "literature_representatives",
+   "delivery": "git",
+   "bytes": 14338,
+   "sha256": "5e989ac3ebd9c1ed9a1e761039a4b940c6152d72f1ea4aaedc95609be6e53d1a",
+   "format": "JSON, e.g. {\"items\": [{\"representative\": \"SQ634N-nose-001\", \"requirement\": [\"F19 콧뿌리 높이:높음\"], \"valence\": \"좋음\"}]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/selection_rules.json",
+   "git_path": "deploy/v1/config/selection_rules.json",
+   "role": "selection_rules",
+   "delivery": "git",
+   "bytes": 2944,
+   "sha256": "bb4d37b4a2c9c6f6aac5e509df73bfd8b7353a1f674f3b46cc675e467a5d229b",
+   "format": "JSON, e.g. {\"plan\": \"C (round-robin by region)\", \"limits\": {\"same_region_max\": null, \"unfavourable_max\": 2, \"total\": 5}}"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/nose_measures.json",
+   "git_path": "deploy/v1/config/nose_measures.json",
+   "role": "nose_measures",
+   "delivery": "git",
+   "bytes": 1628,
+   "sha256": "999cf302057e12c9bfc869b9a25db96293b96e9ab859f30d4f7d8dd9d35f74c6",
+   "format": "JSON, e.g. {\"features\": {\"F09\": {\"name\": \"코 길이\", \"cuts\": [0.353, 0.378], \"sigma\": 0.0039}}, \"hold_below_boundary_score\": 0.755}"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/eye_measures.json",
+   "git_path": "deploy/v1/config/eye_measures.json",
+   "role": "eye_measures",
+   "delivery": "git",
+   "bytes": 1729,
+   "sha256": "b5ccd65ba7ba26f8121f6f617174e586de16ce9370b0652d1b54a18ce788d06c",
+   "format": "JSON, e.g. {\"features\": {\"F01\": {\"name\": \"눈 크기\", \"cuts\": [-0.914, 0.107], \"sigma\": 0.31}}, \"standardisation_train270\": {\"w\": {\"mean\": 0.195, \"sd\": 0.0089}}, \"hold_below_boundary_score\": 0.755}"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/jaw_measures.json",
+   "git_path": "deploy/v1/config/jaw_measures.json",
+   "role": "jaw_measures",
+   "delivery": "git",
+   "bytes": 875,
+   "sha256": "5669804c7d0d18a8bb3c0cd1b6adb3f602694c4f3a9a4f63e492f8d90da47a5c",
+   "format": "JSON, e.g. {\"features\": {\"F17\": {\"name\": \"턱 폭\", \"cuts\": [119.01, 125.45], \"sigma\": 1.11}}, \"hold_below_boundary_score\": 0.755}"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/features.json",
+   "git_path": "deploy/v1/config/features.json",
+   "role": "features",
+   "delivery": "git",
+   "bytes": 4265,
+   "sha256": "199d55b1e63eed6129f062d5d6b387a1d093c394a4d9df317c714ededc7023b5",
+   "format": "JSON, e.g. {\"features\": {\"F09\": {\"name\": \"코 길이\", \"region\": \"코\", \"classes\": [\"짧음\",\"보통\",\"김\"], \"method\": \"정면 수치\", \"config\": \"nose_measures.json\"}}}"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/check_models.json",
+   "git_path": "deploy/v1/config/check_models.json",
+   "role": "check_models",
+   "delivery": "git",
+   "bytes": 2990,
+   "sha256": "45b152d5e5ed5c28c9e17addffdc3b42398d89f9fba47f5c4dca4550be4ed788",
+   "format": "JSON, e.g. {\"models\": [{\"feature\": \"F17\", \"head\": \"F17\", \"folder\": \"candidate-v2-jawrank\", \"part\": \"face\", \"temperature\": 1.2}]}"
+  },
+  {
+   "path": "experiments/feature17-20261109/deploy_v1/depth_models.json",
+   "git_path": "deploy/v1/config/depth_models.json",
+   "role": "depth_models",
+   "delivery": "git",
+   "bytes": 23873,
+   "sha256": "630452308299f96551bc056c539511b17e51dde8e530f54a310c3fcfa04e5b31",
+   "format": "JSON, e.g. {\"features\": {\"F19\": {\"kind\": \"ordinal3\", \"intercept\": 0.9, \"coef\": {\"rig\": {\"168\": 3.1}, \"old\": {}}, \"cuts\": [0.77, 1.09], \"sigma\": 0.26}}}"
+  },
+  {
+   "path": "experiments/feature17-20261109/vggt3/vggt_template.npy",
+   "role": "VGGT-space mean face for the rig frame of depth_models.json (mean shape of train270; kept out of git)",
+   "delivery": "s3",
+   "bytes": 11600,
+   "sha256": "31746c50af35ad8f8338f620a25235e8dea7f677c8a0ac7eb8dfa369e3e56e3d",
+   "format": "numpy float64 (478, 3)"
+  },
+  {
+   "path": "models/vggt/model.pt",
+   "role": "VGGT-1B weights",
+   "delivery": "s3",
+   "bytes": 5026874952,
+   "sha256": "d15bf50a8615c8225ed48b51ea5cac673d82442ec0309036df555a053253afe0",
+   "format": "torch state_dict (point/track heads unused)"
+  },
+  {
+   "path": "models/face_landmarker.task",
+   "role": "MediaPipe Face Landmarker",
+   "delivery": "s3",
+   "bytes": 3758596,
+   "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+   "format": "MediaPipe task bundle"
+  },
+  {
+   "path": "models/face_parsing/resnet18.onnx",
+   "role": "face parsing (brow / nose / hair mask)",
+   "delivery": "s3",
+   "bytes": 53205364,
+   "sha256": "0d9bd318e46987c3bdbfacae9e2c0f461cae1c6ac6ea6d43bbe541a91727e33f",
+   "format": "ONNX, CPU"
+  }
+ ],
+ "total_bytes": 6203811946,
+ "s3_bytes": 6203755597,
+ "git_bytes": 56349
+}

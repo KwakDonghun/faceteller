@@ -1,0 +1,94 @@
+{
+ "schema": "faceteller-cnn-calibration-v1",
+ "source": "out-of-fold predictions of 304 CV people (train270+selection34), 10-epoch trainer_v2, pose-normalised crops",
+ "rule": "p_cal = p^(1/T) renormalised over the shape classes; score = max p_cal; score < confidence_floor -> hold (보류, cannot trigger a passage); unjudgeable head > 0.5 -> hold",
+ "confidence_floor": 0.6,
+ "features": {
+  "F02": {
+   "classes": [
+    "가늘고 긴 편",
+    "보통",
+    "세로로 넓은 편"
+   ],
+   "temperature": 1.2000000000000002
+  },
+  "F03": {
+   "classes": [
+    "내려간 편",
+    "수평",
+    "올라간 편"
+   ],
+   "temperature": 1.4
+  },
+  "F04": {
+   "classes": [
+    "짧은 편",
+    "보통",
+    "긴 편"
+   ],
+   "temperature": 1.0
+  },
+  "F05": {
+   "classes": [
+    "일자",
+    "곡선"
+   ],
+   "temperature": 1.7000000000000002
+  },
+  "F06": {
+   "classes": [
+    "가까움",
+    "보통",
+    "넓음"
+   ],
+   "temperature": 1.0
+  },
+  "F08": {
+   "classes": [
+    "좁음",
+    "보통",
+    "넓음"
+   ],
+   "temperature": 1.1
+  },
+  "F11": {
+   "classes": [
+    "둥근 편",
+    "좁아지는 편"
+   ],
+   "temperature": 1.8
+  },
+  "F13": {
+   "classes": [
+    "얇은 편",
+    "보통",
+    "두꺼운 편"
+   ],
+   "temperature": 0.9
+  },
+  "F14": {
+   "classes": [
+    "내려감",
+    "수평",
+    "올라감"
+   ],
+   "temperature": 0.9
+  },
+  "F15": {
+   "classes": [
+    "짧음",
+    "보통",
+    "김"
+   ],
+   "temperature": 1.1
+  },
+  "F18": {
+   "classes": [
+    "성김",
+    "보통",
+    "짙음"
+   ],
+   "temperature": 0.8
+  }
+ }
+}
