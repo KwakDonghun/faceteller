@@ -1,6 +1,6 @@
 {
  "schema": "faceteller-features-v1",
- "note": "the 19 features of the structure: display name, region, ordered classes, how it is judged and which config file holds its numbers",
+ "note": "the 19 features of the structure (v10, 2026-11-17): display name, region, ordered classes, how it is judged and which config file holds its numbers. cnn_parts = the CNN ensembles the structure loads and their heads",
  "cnn_parts": {
   "eye": [
    "F01",
@@ -22,9 +22,6 @@
    "F12",
    "F13",
    "F14"
-  ],
-  "philtrum": [
-   "F15"
   ]
  },
  "features": {
@@ -90,8 +87,8 @@
     "보통",
     "넓음"
    ],
-   "method": "CNN",
-   "config": "cnn_calibration.json"
+   "method": "정면 수치",
+   "config": "cuts5_measures.json"
   },
   "F07": {
    "name": "미간",
@@ -166,8 +163,8 @@
     "보통",
     "두꺼운 편"
    ],
-   "method": "CNN",
-   "config": "cnn_calibration.json"
+   "method": "정면 수치",
+   "config": "cuts5_measures.json"
   },
   "F14": {
    "name": "입꼬리",
@@ -188,8 +185,8 @@
     "보통",
     "김"
    ],
-   "method": "CNN",
-   "config": "cnn_calibration.json"
+   "method": "정면 수치",
+   "config": "cuts5_measures.json"
   },
   "F17": {
    "name": "턱 폭",
@@ -222,7 +219,7 @@
     "높음"
    ],
    "method": "VGGT 맞춤식",
-   "config": "depth_models.json"
+   "config": "depth_models.json (formula), cuts5_measures.json (cut)"
   },
   "F21": {
    "name": "입 돌출",
@@ -233,7 +230,7 @@
     "나옴"
    ],
    "method": "VGGT 맞춤식",
-   "config": "depth_models.json"
+   "config": "depth_models.json (formula), cuts5_measures.json (cut)"
   }
  }
 }

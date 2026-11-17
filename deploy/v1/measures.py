@@ -106,7 +106,8 @@ def brow_gap_and_mouth_width(P3, mask):
 
 
 # ---- what each judged value is, for display (label, unit)
-INFO = {'F01': ('눈 크기 점수: 눈 가로 폭과 눈 뜬 높이를 표준화해 평균한 값(0이 학습 자료 평균)', '점수'), 'F07': ('두 눈썹 안쪽 끝 사이 ÷ 얼굴 폭', '비율'), 'F09': ('두 눈 위쪽 끝의 가운데 ~ 코밑 ÷ 얼굴 폭', '비율'),
+INFO = {'F06': ('눈썹 아래 가장자리 ~ 눈 위쪽 끝 ÷ 눈 가로', '비율'), 'F13': ('윗입술 + 아랫입술 두께 ÷ 입 폭(자세 보정 후)', '비율'), 'F15': ('코밑 ~ 윗입술 ÷ 눈썹 사이 ~ 턱 끝(자세 보정 후)', '비율'),
+        'F01': ('눈 크기 점수: 눈 가로 폭과 눈 뜬 높이를 표준화해 평균한 값(0이 학습 자료 평균)', '점수'), 'F07': ('두 눈썹 안쪽 끝 사이 ÷ 얼굴 폭', '비율'), 'F09': ('두 눈 위쪽 끝의 가운데 ~ 코밑 ÷ 얼굴 폭', '비율'),
         'F10': ('코끝이 미간~턱 앞 선에서 앞으로 나온 거리 ÷ 두 눈 바깥 끝 거리(3차원)', '비율'), 'F12': ('입꼬리 사이 ÷ 얼굴 폭', '비율'), 'F17': ('턱 끝에서 양쪽 턱 모서리를 본 각도', '도'),
         'F20': ('광대 돌출 식의 점수(3차원 점 깊이의 가중합)', '점수'), 'F21': ('입 돌출 식의 점수(3차원 점 깊이의 가중합)', '점수')}
 
@@ -122,14 +123,14 @@ def _bend(path):
 
 
 def reference_measures(P3, mask, template):
-    """{feature: {'label', 'value', 'unit', 'components'?}} - shown only, never judged."""
+    """{feature: {'label', 'value', 'unit', 'components'?}} - shown next to the CNN result; the F06 / F13 / F15 values are the judged measurements (cuts5_measures.json)."""
     P3 = np.asarray(P3, float); q, A = eye_affine(P3); E = lambda a, b: float(n_(q[a] - q[b])); fw = E(234, 454); out = {}; eyes = [(33, 133, 159, 145), (263, 362, 386, 374)]
     X, s_ = PN._norm(P3); f = (X @ PN.kabsch(X[PN.RIGID], template[PN.RIGID]))[:, :2] * s_; Ef = lambda a, b: float(n_(f[a] - f[b])); mo = Ef(61, 291)  # pose-normalised landmarks for the pitch-sensitive ones
     out['F02'] = {'label': '눈 세로(위·아래 눈꺼풀 점) ÷ 눈 가로', 'value': float(np.mean([E(t, b) / E(o, n) for o, n, t, b in eyes])), 'unit': '비율'}
     out['F03'] = {'label': '눈꼬리 각도(자세 보정 후, +면 눈꼬리가 올라감)', 'value': float(np.mean([math.degrees(math.atan2(f[n, 1] - f[o, 1], abs(f[o, 0] - f[n, 0]))) for o, n, t, b in eyes])), 'unit': '도'}
     out['F13'] = {'label': '윗입술 + 아랫입술 두께 ÷ 입 폭(자세 보정 후)', 'value': (Ef(0, 13) + Ef(14, 17)) / mo, 'unit': '비율'}
     out['F14'] = {'label': '입 가운데 높이 − 입꼬리 높이, ÷ 입 폭(자세 보정 후, +면 입꼬리가 올라감)', 'value': float(((f[13, 1] + f[14, 1]) / 2 - (f[61, 1] + f[291, 1]) / 2) / mo), 'unit': '비율'}
-    out['F15'] = {'label': '코밑 ~ 윗입술 ÷ 코밑 ~ 턱 끝(자세 보정 후)', 'value': Ef(2, 0) / Ef(2, 152), 'unit': '비율'}
+    out['F15'] = {'label': INFO['F15'][0], 'value': Ef(2, 0) / float(n_((f[107] + f[336]) / 2 - f[152])), 'unit': '비율'}  # candidate 9 of the 2026-11-17 check page (was: / subnasale-chin)
     y, x = np.where(mask == 10)
     if len(x) > 25: nz = np.c_[x, y, np.ones(len(x))] @ A.T; out['F08'] = {'label': '코 영역(얼굴 분할) 가로 폭 ÷ 얼굴 폭', 'value': float((nz[:, 0].max() - nz[:, 0].min()) / fw), 'unit': '비율'}
     sides = measure_brows(mask, P3, pose=None, blend=None)['sides']; yy, xx = np.where(np.isin(mask, [2, 3])); bxy = np.c_[xx, yy, np.ones(len(xx))] @ A.T; f04, f05, bend, f06 = [], [], [], []

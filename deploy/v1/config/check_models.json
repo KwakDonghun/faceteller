@@ -51,6 +51,36 @@
    ],
    "temperature": 2.4000000000000004,
    "tag": "예전 CNN(사람 레이블)"
+  },
+  "F06": {
+   "part": "brow",
+   "classes": [
+    "가까움",
+    "보통",
+    "넓음"
+   ],
+   "temperature": 1.0,
+   "tag": "예전 CNN(사람 레이블)"
+  },
+  "F13": {
+   "part": "mouth",
+   "classes": [
+    "얇은 편",
+    "보통",
+    "두꺼운 편"
+   ],
+   "temperature": 0.9,
+   "tag": "예전 CNN(사람 레이블)"
+  },
+  "F15": {
+   "part": "philtrum",
+   "classes": [
+    "짧음",
+    "보통",
+    "김"
+   ],
+   "temperature": 1.1,
+   "tag": "예전 CNN(사람 레이블)"
   }
  },
  "models": [

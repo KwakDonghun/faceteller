@@ -870,5 +870,6 @@
  "used_features": [
   "F20",
   "F21"
- ]
+ ],
+ "cuts_note": "since 2026-11-17 the cuts and sigma of F20 and F21 are read from cuts5_measures.json (team rank cuts); the cuts stored here were fitted to the 2026-11-15 labels and are no longer used"
 }

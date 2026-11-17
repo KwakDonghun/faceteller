@@ -1,0 +1,145 @@
+{
+ "schema": "faceteller-cuts5-measures-v1",
+ "decided": "2026-11-17 (user): rank cuts read off the sorted check pages (눈썹-눈 간격 1-83 넓음 / 337- 가까움, 입술 두께 1-56 / 341-, 인중 길이 candidate 9 1-61 김 / 259- 짧음, 광대 돌출 1-149 높음, 입 돌출 1-45 나옴); F06 F13 F15 judged by measurement and held within one sigma of a cut; F20 F21 not held",
+ "sigma_multiplier": 1.45,
+ "hold_below_boundary_score": 0.7547944687186952,
+ "features": {
+  "F06": {
+   "name": "눈썹-눈 간격",
+   "classes": [
+    "가까움",
+    "보통",
+    "넓음"
+   ],
+   "formula": "frontal photo: brow lower edge (face-parsing mask) to the upper eyelid point (159 / 386), divided by the eye width, mean of both eyes (numeric v1)",
+   "cuts": [
+    0.4523415309993536,
+    0.6253889397733879
+   ],
+   "sigma": 0.021762812740733647,
+   "between_person_sd": 0.09330197420391849,
+   "reliability_single_photo": 0.9484011011696785,
+   "rank_cut": {
+    "high_until_rank": 83,
+    "low_from_rank": 337,
+    "people_ranked": 395
+   },
+   "rank_label_shares": {
+    "가까움": 59,
+    "보통": 253,
+    "넓음": 83
+   },
+   "photos_within_one_sigma_of_a_cut": 0.26627218934911245
+  },
+  "F13": {
+   "name": "입술 두께",
+   "classes": [
+    "얇은 편",
+    "보통",
+    "두꺼운 편"
+   ],
+   "formula": "frontal photo, pose-normalised landmarks: (|0-13| + |14-17|) / |61-291| (numeric v2)",
+   "cuts": [
+    0.27661057584207027,
+    0.3946622587904668
+   ],
+   "sigma": 0.012933523629899432,
+   "between_person_sd": 0.05662357081724709,
+   "reliability_single_photo": 0.9504147635395588,
+   "rank_cut": {
+    "high_until_rank": 56,
+    "low_from_rank": 341,
+    "people_ranked": 400
+   },
+   "rank_label_shares": {
+    "얇은 편": 60,
+    "보통": 284,
+    "두꺼운 편": 56
+   },
+   "photos_within_one_sigma_of_a_cut": 0.1875
+  },
+  "F15": {
+   "name": "인중 길이",
+   "classes": [
+    "짧음",
+    "보통",
+    "김"
+   ],
+   "formula": "frontal photo, pose-normalised landmarks: |2-0| / |mid(107,336)-152| (candidate 9 of the sorted page)",
+   "cuts": [
+    0.11129714154316658,
+    0.1274263171982996
+   ],
+   "sigma": 0.0026955186248856966,
+   "between_person_sd": 0.01114618012794063,
+   "reliability_single_photo": 0.9447479353841509,
+   "rank_cut": {
+    "high_until_rank": 61,
+    "low_from_rank": 259,
+    "people_ranked": 400
+   },
+   "rank_label_shares": {
+    "짧음": 142,
+    "보통": 197,
+    "김": 61
+   },
+   "photos_within_one_sigma_of_a_cut": 0.2841666666666667
+  },
+  "F20": {
+   "name": "광대 돌출",
+   "classes": [
+    "낮음",
+    "보통",
+    "높음"
+   ],
+   "formula": "VGGT formula score of depth_models.json (F20); score >= cut is 높음, else 보통; 낮음 is never given",
+   "cuts": [
+    -0.2983481831769801
+   ],
+   "sigma": 1.7915498428068752,
+   "between_person_sd": 2.4606592691454003,
+   "reliability_single_photo": 0.6535536063761977,
+   "rank_cut": {
+    "high_until_rank": 149,
+    "low_from_rank": null,
+    "people_ranked": 400
+   },
+   "rank_label_shares": {
+    "낮음": 0,
+    "보통": 251,
+    "높음": 149
+   },
+   "photos_within_one_sigma_of_a_cut": 0.4895
+  },
+  "F21": {
+   "name": "입 돌출",
+   "classes": [
+    "들어감",
+    "보통",
+    "나옴"
+   ],
+   "formula": "VGGT formula score of depth_models.json (F21); score >= cut is 나옴, else 보통; 들어감 is never given",
+   "cuts": [
+    0.9193010708278792
+   ],
+   "sigma": 0.7538780328665502,
+   "between_person_sd": 1.464450875091001,
+   "reliability_single_photo": 0.790511283912476,
+   "rank_cut": {
+    "high_until_rank": 45,
+    "low_from_rank": null,
+    "people_ranked": 400
+   },
+   "rank_label_shares": {
+    "들어감": 0,
+    "보통": 355,
+    "나옴": 45
+   },
+   "photos_within_one_sigma_of_a_cut": 0.221
+  }
+ },
+ "not_held": [
+  "F20",
+  "F21"
+ ]
+}
