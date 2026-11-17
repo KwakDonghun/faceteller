@@ -85,10 +85,10 @@ function StatementLine({l, groupValence}: {l: ReportLine; groupValence: string})
 
 /** A condition group: what the books say for this shape, one line per kind of statement - the sentence and its books, nothing else
  *  (user, 2026-11-16: no counts or notes around the lines; the report still carries entry_count / hidden_unfavourable / omitted_entries). */
-function PassageBlock({p, index, chosen, judgements}: {p: ReportPassage; index: number; chosen?: boolean; judgements: Record<string, ReportJudgement>}) {
+function PassageBlock({p, index, note, judgements}: {p: ReportPassage; index: number; note?: string; judgements: Record<string, ReportJudgement>}) {
   const lines = p.lines || [];
   return <article className="report-passage" data-valence={VALENCE[p.valence] || 'neutral'}>
-    <div className="report-passage-head"><span className="rank">{index + 1}</span><b>{conditionText(p.requirement)}</b><Tone value={p.valence}/><span className="report-g">신뢰도 {two(p.G)}</span>{chosen !== undefined && <span className="partchip">{chosen ? '5개에 선정' : '5개가 먼저 참'}</span>}</div>
+    <div className="report-passage-head"><span className="rank">{index + 1}</span><b>{conditionText(p.requirement)}</b><Tone value={p.valence}/><span className="report-g">신뢰도 {two(p.G)}</span>{note && <span className="partchip">{note}</span>}</div>
     <Evidence p={p} judgements={judgements}/>
     {lines.length > 0 ? <ul className="report-lines">{lines.map(l => <StatementLine key={l.topic} l={l} groupValence={p.valence}/>)}</ul> : <>
       {p.original_text && <p className="report-original" lang="zh">{p.original_text}</p>}
@@ -101,12 +101,20 @@ function PassageBlock({p, index, chosen, judgements}: {p: ReportPassage; index: 
   </article>;
 }
 
-function PassageList({rows, chosen, judgements}: {rows: ReportPassage[]; chosen?: Set<string>; judgements: Record<string, ReportJudgement>}) {
-  return <div className="report-passages">{rows.map((p, i) => <PassageBlock key={p.representative} p={p} index={i} judgements={judgements} chosen={chosen ? chosen.has(p.representative) : undefined}/>)}</div>;
+function PassageList({rows, note, judgements}: {rows: ReportPassage[]; note?: (p: ReportPassage) => string; judgements: Record<string, ReportJudgement>}) {
+  return <div className="report-passages">{rows.map((p, i) => <PassageBlock key={p.representative} p={p} index={i} judgements={judgements} note={note?.(p)}/>)}</div>;
+}
+// Plan C limits (deploy/v1/config/selection_rules.json): five passages in all, at most two unfavourable ones.
+const TOTAL = 5, BAD_MAX = 2;
+/** Why a passage whose conditions hold is not among the selected ones. */
+export function leftOutReason(p: ReportPassage, selected: ReportPassage[]): string {
+  if (p.valence === '나쁨' && selected.filter(s => s.valence === '나쁨').length >= BAD_MAX) return `나쁜 풀이는 ${BAD_MAX}개까지`;
+  return selected.length >= TOTAL ? `${TOTAL}개가 먼저 참` : '선정 규칙에서 빠짐';
 }
 
 export function ResearchReportView({report, notice, onReset}: {report: ResearchReport; notice?: string; onReset: () => void}) {
   const chosen = new Set(report.plan_C_selected.map(p => p.representative)), judgements = Object.entries(report.judgements);
+  const rest = report.all_matching.filter(p => !chosen.has(p.representative));  // the selected ones are shown above; do not repeat them
   const confirmed = judgements.filter(([, j]) => j.status === '확정').length;
   const checks = Object.entries(report.cnn_check).flatMap(([feature, models]) => Object.entries(models).map(([model, c]) => ({feature, model, c})));
   const licenses = [...new Set([...report.all_matching, ...report.blocked_by_hold].flatMap(p => [p.source_detail?.license, ...(p.lines || []).flatMap(l => l.entries.map(e => e.source_detail?.license))]).filter((v): v is string => !!v))];
@@ -117,8 +125,11 @@ export function ResearchReportView({report, notice, onReset}: {report: ResearchR
     <h2 className="section-title">고른 조항 (C안, 최대 5개)</h2>
     {report.plan_C_selected.length ? <PassageList rows={report.plan_C_selected} judgements={report.judgements}/> : <p className="report-empty">조건이 맞는 조항이 없습니다.</p>}
 
-    <h2 className="section-title">조건이 맞는 전체 조항 ({report.all_matching.length}개)</h2>
-    {report.all_matching.length ? <details className="report-fold"><summary>전체 {report.all_matching.length}개 펼쳐 보기</summary><PassageList rows={report.all_matching} chosen={chosen} judgements={report.judgements}/></details> : <p className="report-empty">조건이 맞는 조항이 없습니다.</p>}
+    <h2 className="section-title">그 밖에 해당하는 조항 ({rest.length}개)</h2>
+    {rest.length ? <>
+      <p className="res-sub">조건이 맞는 조항은 모두 {report.all_matching.length}개입니다. 위에 고른 {report.plan_C_selected.length}개 말고 아래 {rest.length}개가 더 있습니다.</p>
+      <details className="report-fold" open><summary>그 밖의 {rest.length}개</summary><PassageList rows={rest} note={p => leftOutReason(p, report.plan_C_selected)} judgements={report.judgements}/></details>
+    </> : <p className="report-empty">{report.all_matching.length ? `조건이 맞는 조항은 위에 고른 ${report.plan_C_selected.length}개가 전부입니다.` : '조건이 맞는 조항이 없습니다.'}</p>}
 
     <h2 className="section-title">보류 때문에 나오지 못한 조항 ({report.blocked_by_hold.length}개)</h2>
     {report.blocked_by_hold.length ? <PassageList rows={report.blocked_by_hold} judgements={report.judgements}/> : <p className="report-empty">보류 때문에 나오지 못한 조항은 없습니다.</p>}

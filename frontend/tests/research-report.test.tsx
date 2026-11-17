@@ -1,7 +1,7 @@
 import {beforeAll, describe, expect, it} from 'vitest';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {Results} from '../src/Results';
-import {conditionText, cutText, scanText, withUnit} from '../src/ResearchReport';
+import {conditionText, cutText, leftOutReason, scanText, withUnit} from '../src/ResearchReport';
 import {validateResult, validReport} from '../src/api';
 import type {AnalysisResult, ReportPassage, ResearchReport} from '../src/types';
 
@@ -37,9 +37,9 @@ describe('temporary research report view', () => {
     const html = render(result(report()));
     expect(html).toContain('연구용 상세 결과');
     expect(html).not.toContain('생김새로 본 관상 풀이');
-    for (const text of ['고른 조항 (C안, 최대 5개)', '조건이 맞는 전체 조항 (2개)', '보류 때문에 나오지 못한 조항은 없습니다.', '보류된 판정 (1개)', '전체 판정과 측정값 (4개)', '확인용 CNN (조항에는 쓰지 않음)']) expect(html).toContain(text);
+    for (const text of ['고른 조항 (C안, 최대 5개)', '그 밖에 해당하는 조항 (1개)', '조건이 맞는 조항은 모두 2개입니다. 위에 고른 1개 말고 아래 1개가 더 있습니다.', '보류 때문에 나오지 못한 조항은 없습니다.', '보류된 판정 (1개)', '전체 판정과 측정값 (4개)', '확인용 CNN (조항에는 쓰지 않음)']) expect(html).toContain(text);
     expect(html).toContain('눈썹 휨: 일자'); expect(html).toContain('합성 번역 S-1');
-    expect(html).toContain('5개가 먼저 참'); expect(html).toContain('이 칸을 조건으로 쓰는 조항이 없음');
+    expect(html).toContain('선정 규칙에서 빠짐'); expect(html).toContain('이 칸을 조건으로 쓰는 조항이 없음');
     expect(html).toContain('<td class="num">0.55</td>'); expect(html).toContain('<td class="num">없음</td>'); expect(html).toContain('합성 확인 모델');
     expect(html).toContain('정답 확률이 아닙니다');
   });
@@ -48,7 +48,6 @@ describe('temporary research report view', () => {
     const html = render(result(report()));
     expect(html).toContain('<p class="report-original" lang="zh">合成原文S-1</p>'); expect(html).toContain('합성 해설 S-1');
     for (const text of ['합성서 (合成書)', '合成 第1卷', '合成節', '그 절 본문의 10~22번째 글자', '고금도서집성 스캔본 400책 7쪽', 'href="https://example.org/source"', '合成底本', '자동 작성한 초안이며 사람이 검수하기 전', '문헌 원문의 이용 조건: 합성 이용 조건']) expect(html).toContain(text);
-    expect(html).toContain('5개에 선정'); expect(html).toContain('5개가 먼저 참');
     expect(scanText('Page:Other Book.djvu/3')).toBe('Other Book.djvu/3'); expect(scanText(null)).toBe(''); expect(scanText('pdf_page:31')).toBe('스캔 PDF 31쪽');
   });
 
@@ -58,6 +57,19 @@ describe('temporary research report view', () => {
     expect(html).toContain('<td class="num">0.371</td>');
     expect(withUnit(102.18, '도')).toBe('102.2°'); expect(withUnit(-0.8633, '점수')).toBe('-0.86'); expect(withUnit(null, '비율')).toBe('–');
     expect(cutText({label: 'x', value: 1, unit: '점수', cuts: [.99], cut_classes: ['보통', '높음']})).toBe('0.99 이상 높음 · 미만 보통');
+  });
+
+  it('lists the matching passages that were not selected without repeating the selected ones', () => {
+    const html = render(result(report())); const rest = html.slice(html.indexOf('그 밖에 해당하는 조항'), html.indexOf('보류 때문에 나오지 못한 조항'));
+    expect(rest).toContain('합성 번역 S-2'); expect(rest).not.toContain('합성 번역 S-1'); expect(html.split('합성 번역 S-1').length).toBe(2);  // the selected passage appears once on the page
+    const all = report(); all.all_matching = [all.all_matching[0]];
+    expect(render(result(all))).toContain('조건이 맞는 조항은 위에 고른 1개가 전부입니다.');
+    const none = report(); none.plan_C_selected = []; none.all_matching = [];
+    expect(render(result(none))).toContain('그 밖에 해당하는 조항 (0개)');
+    const p = (valence: string) => ({valence}) as ReportPassage;
+    expect(leftOutReason(p('나쁨'), [p('나쁨'), p('나쁨'), p('좋음')])).toBe('나쁜 풀이는 2개까지');
+    expect(leftOutReason(p('좋음'), [p('나쁨'), p('나쁨'), p('좋음'), p('좋음'), p('중립')])).toBe('5개가 먼저 참');
+    expect(leftOutReason(p('나쁨'), [p('나쁨'), p('좋음'), p('좋음'), p('좋음'), p('중립')])).toBe('5개가 먼저 참');
   });
 
   it('shows one line per kind of statement with every book in brackets, and the passages behind it', () => {
